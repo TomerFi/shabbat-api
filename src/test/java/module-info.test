@@ -1,0 +1,26 @@
+--add-modules
+  jdk.unsupported,java.sql,org.assertj.core,org.junit.jupiter.api,org.junit.jupiter.params,awaitility,org.hamcrest
+
+--add-reads
+  info.tomfi.hebcal.shabbat=org.assertj.core
+--add-reads
+  info.tomfi.hebcal.shabbat=org.junit.jupiter.api
+--add-reads
+  info.tomfi.hebcal.shabbat=org.junit.jupiter.params
+
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat=org.junit.platform.commons
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.impl=org.junit.platform.commons
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.request=org.junit.platform.commons
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=org.junit.platform.commons
+
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.request=nl.jqno.equalsverifier
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=nl.jqno.equalsverifier
+
+--add-opens
+  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=com.fasterxml.jackson.databind

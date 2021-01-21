@@ -1,0 +1,17 @@
+{
+  "title": "response fake title",
+  "link": "response fake link",
+  "date": "response fake date",
+  "location": {
+    "latitude": 25.25,
+    "city": "some city",
+    "asciiname": "nice ascii name",
+    "title": "location fake title",
+    "tzid": "here tzid",
+    "geonameid": 2526,
+    "admin1": "admino uno",
+    "country": "a great country",
+    "longitude": 26.26,
+    "geo": "geo who"
+  }
+}

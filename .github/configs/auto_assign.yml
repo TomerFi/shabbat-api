@@ -1,0 +1,9 @@
+# https://probot.github.io/apps/auto-assign/
+---
+addReviewers: true
+addAssignees: author
+reviewers:
+  - tomerfi
+skipKeywords:
+  - "type: wip"
+numberOfReviewers: 1
