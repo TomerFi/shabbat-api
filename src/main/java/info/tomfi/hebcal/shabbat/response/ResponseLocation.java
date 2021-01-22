@@ -15,8 +15,8 @@ package info.tomfi.hebcal.shabbat.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import info.tomfi.hebcal.shabbat.Nullable;
 import java.util.Optional;
-import javax.annotation.Nullable;
 
 /** Value abstraction used to represent the location json object from the API response. */
 @AutoValue

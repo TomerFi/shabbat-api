@@ -13,5 +13,4 @@ module info.tomfi.hebcal.shabbat {
   requires com.fasterxml.jackson.core;
   requires com.fasterxml.jackson.databind;
   requires auto.value.annotations;
-  requires jsr305;
 }

@@ -26,7 +26,6 @@
     <hamcrest.version>2.2</hamcrest.version>
     <jackson.version>2.12.1</jackson.version>
     <javafaker.version>1.0.2</javafaker.version>
-    <jsr305.version>3.0.2</jsr305.version>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
     <opentest4j.version>1.2.0</opentest4j.version>
     <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
@@ -100,11 +99,6 @@
         <groupId>com.google.auto.value</groupId>
         <artifactId>auto-value-annotations</artifactId>
         <version>${auto-value.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>${jsr305.version}</version>
       </dependency>
       <!-- SERIALIZATION DEPENDENCIES -->
       <dependency>
@@ -208,11 +202,6 @@
     <dependency>
       <groupId>com.google.auto.service</groupId>
       <artifactId>auto-service-annotations</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
       <scope>provided</scope>
     </dependency>
     <!-- SERIALIZATION DEPENDENCIES -->
@@ -612,13 +601,13 @@ limitations under the License.]]>
     <!-- use this profile manually when deploying to gpr. -->
     <profile>
       <id>deploy-github</id>
-        <distributionManagement>
-          <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/TomerFi/hebcal-api</url>
-          </repository>
-        </distributionManagement>
+      <distributionManagement>
+        <repository>
+          <id>github</id>
+          <name>GitHub Packages</name>
+          <url>https://maven.pkg.github.com/TomerFi/hebcal-api</url>
+        </repository>
+      </distributionManagement>
     </profile>
 
     <!-- use this profile manually for packaging of jars to deploy to artifact repository. -->
