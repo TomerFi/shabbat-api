@@ -4,7 +4,7 @@
 
   <groupId>info.tomfi.hebcal</groupId>
   <artifactId>hebcal-api</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Hebcal API</name>
   <description>A Java API encapsulating HebCal's REST API.</description>
@@ -87,7 +87,6 @@
     <system>GitHub Workflows</system>
     <url>https://github.com/TomerFi/hebcal-api/actions</url>
   </ciManagement>
-
 
   <dependencyManagement>
     <dependencies>
@@ -610,9 +609,21 @@ limitations under the License.]]>
   </build>
 
   <profiles>
+    <!-- use this profile manually when deploying to gpr. -->
+    <profile>
+      <id>deploy-github</id>
+        <distributionManagement>
+          <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/TomerFi/hebcal-api</url>
+          </repository>
+        </distributionManagement>
+    </profile>
+
     <!-- use this profile manually for packaging of jars to deploy to artifact repository. -->
     <profile>
-      <id>prep</id>
+      <id>prepare-deployment</id>
       <build>
         <plugins>
 
@@ -652,6 +663,15 @@ limitations under the License.]]>
             </executions>
           </plugin>
 
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- use this profile manually for signing the deployment files prior to deployment. -->
+    <profile>
+      <id>sign-deployment</id>
+      <build>
+        <plugins>
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
@@ -663,10 +683,10 @@ limitations under the License.]]>
               </execution>
             </executions>
           </plugin>
-
         </plugins>
       </build>
     </profile>
+
   </profiles>
 
 </project>
