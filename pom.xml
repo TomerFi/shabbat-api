@@ -79,7 +79,7 @@
   <scm>
     <url>https://github.com/TomerFi/hebcal-api</url>
     <connection>scm:git:git://github.com/TomerFi/hebcal-api.git</connection>
-    <developerConnection>scm:git:ssh://github.com:TomerFi/hebcal-api.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/TomerFi/hebcal-api</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
