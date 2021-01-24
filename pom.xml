@@ -614,6 +614,7 @@ limitations under the License.]]>
       </distributionManagement>
     </profile>
 
+    <!-- use this profile manually when deploying to ossrh. -->
     <profile>
       <id>deploy-ossrh</id>
       <distributionManagement>
