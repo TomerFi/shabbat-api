@@ -6,7 +6,48 @@ The artifact offers a Java service and provider encapsulating [HebCal][3]'s REST
 For the time being, only the [Shabbat times][4] was implemented using the
 publicized [REST API](https://www.hebcal.com/home/197/shabbat-times-rest-api).
 
-TODO: add example.
+```java
+// get the api implementation from the service loader
+var shabbatApi = ServiceLoader.load(ShabbatAPI.class).findFirst().get();
+// build a request (omit the forDate step to fetch the closest next shabbat)
+var request = Request.builder().forGeoId(281184).forDate(LocalDate.of(2021, 1, 1)).build();
+// get the future for the reponse
+var completableFuture = shabbatApi.sendAsync(request);
+// do what ever you need to do
+// ...
+// or just wait for the resoponse
+var response = completableFuture.get();
+
+// 281184 is the geoid for jerusalem israel
+assertThat(response.location()).titleIs("Jerusalem, Israel");
+
+// get the various items collection
+var itemsList = response.items().get();
+
+// find the candles item
+var candlesItem = itemsList.stream()
+    .filter(item -> item.category().equals(CANDLES.category()))
+    .findFirst()
+    .get();
+// the shabbat started on the 2021-01-01 at 16:05
+assertThat(candlesItem).dateIs("2021-01-01T16:05:00+02:00");
+
+// find the havdalah item
+var havdalahItem = itemsList.stream()
+    .filter(item -> item.category().equals(HAVDALAH.category()))
+    .findFirst()
+    .get();
+// the shabbat ended on the 2021-01-02 at 17:36
+assertThat(havdalahItem).dateIs("2021-01-02T17:36:00+02:00");
+```
+
+## Disclaimer
+
+This repository has no relation to [HebCal][3].</br>
+[HebCal][3] were nice enough to allow public **free access** to their
+[API via REST services][5].</br>
+The artifact constructed with this repository merely wraps the publicly open
+REST API with a Java API.
 
 <!-- Real Links -->
 [0]: https://github.com/TomerFi/hebcal-api/actions?query=workflow%3APre-release
@@ -16,7 +57,7 @@ TODO: add example.
 [4]: https://www.hebcal.com/shabbat
 [5]: https://www.hebcal.com/home/197/shabbat-times-rest-api
 [6]: https://www.geonames.org/
-[7]: https://search.maven.org/search?q=info.tomfi.hebcal
+[7]: https://ossindex.sonatype.org/component/pkg:maven/info.tomfi.hebcal/hebcal-api
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
 [conventional-commits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
