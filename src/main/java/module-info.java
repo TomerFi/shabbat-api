@@ -8,9 +8,10 @@ module info.tomfi.hebcal.shabbat {
       info.tomfi.hebcal.shabbat.impl.ShabbatAPIProvider;
 
   requires java.net.http;
-  requires com.google.auto.service;
   requires com.fasterxml.jackson.annotation;
   requires com.fasterxml.jackson.core;
   requires com.fasterxml.jackson.databind;
-  requires auto.value.annotations;
+  // the following are needed for compile time only
+  requires static auto.value.annotations;
+  requires static com.google.auto.service;
 }

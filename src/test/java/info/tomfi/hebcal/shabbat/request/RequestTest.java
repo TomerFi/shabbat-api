@@ -53,19 +53,15 @@ final class RequestTest {
 
   @ParameterizedTest
   @MethodSource
-  <T> void verify_enum_members_are_non_empty_strings(final T[] values, Predicate<T> matcher) {
+  <T> void verify_enum_members_are_non_empty_strings(final T[] values, final Predicate<T> matcher) {
     assertThat(values).hasSizeGreaterThan(0).allMatch(matcher::test);
   }
 
   static Stream<Arguments> verify_enum_members_are_non_empty_strings() {
-    Predicate<ParamKeys> paramKeyPredicate = (ParamKeys k) -> !isNullOrEmpty(k.key());
-    Predicate<OutputTypes> outputTypesPredicate = (OutputTypes t) -> !isNullOrEmpty(t.type());
-    Predicate<GeoTypes> geoTypesPredicate = (GeoTypes t) -> !isNullOrEmpty(t.type());
-    Predicate<FlagStates> flagStatePredicate = (FlagStates s) -> !isNullOrEmpty(s.state());
     return Stream.of(
-        arguments(ParamKeys.values(), paramKeyPredicate),
-        arguments(OutputTypes.values(), outputTypesPredicate),
-        arguments(GeoTypes.values(), geoTypesPredicate),
-        arguments(FlagStates.values(), flagStatePredicate));
+        arguments(ParamKeys.values(), (Predicate<ParamKeys>) k -> !isNullOrEmpty(k.key())),
+        arguments(OutputTypes.values(), (Predicate<OutputTypes>) t -> !isNullOrEmpty(t.type())),
+        arguments(GeoTypes.values(), (Predicate<GeoTypes>) t -> !isNullOrEmpty(t.type())),
+        arguments(FlagStates.values(), (Predicate<FlagStates>) s -> !isNullOrEmpty(s.state())));
   }
 }

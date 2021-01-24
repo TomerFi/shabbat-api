@@ -15,7 +15,7 @@ package info.tomfi.hebcal.shabbat.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
-import info.tomfi.hebcal.shabbat.Nullable;
+import info.tomfi.hebcal.shabbat.internal.Nullable;
 import java.util.List;
 import java.util.Optional;
 
