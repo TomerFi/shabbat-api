@@ -16,10 +16,10 @@ For the time being, only the [Shabbat times][4] was implemented using the public
 ```
 
 ```java
-// get the api implementation from the service loader
+// get the provider from the service loader
 var shabbatApi = ServiceLoader.load(ShabbatAPI.class).findFirst().get();
-// build a request (omit the forDate step to fetch the closest next shabbat)
-var request = Request.builder().forGeoId(281184).forDate(LocalDate.of(2021, 1, 1)).build();
+// build a request (omit the withDate step to fetch the closest next shabbat)
+var request = Request.builder().forGeoId(281184).withDate(LocalDate.of(2021, 1, 1)).build();
 // get the future for the reponse
 var completableFuture = shabbatApi.sendAsync(request);
 // do what ever you need to do
@@ -52,9 +52,8 @@ assertThat(havdalahItem).dateIs("2021-01-02T17:36:00+02:00");
 
 ## Disclaimer
 
-This repository has no relation to [HebCal][3].</br>
-[HebCal][3] were nice enough to allow public **free access** to their
-[API via REST services][5].</br>
+This repository has no relations with [HebCal][3].</br>
+[HebCal][3] were nice enough to allow public **free access** to their [API via REST services][5].</br>
 The artifact constructed with this repository merely wraps the publicly open
 REST API with a Java API.
 

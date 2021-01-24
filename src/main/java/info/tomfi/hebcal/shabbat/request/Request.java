@@ -110,7 +110,7 @@ public abstract class Request {
      * @param dateTime the date to incorporate into the request.
      * @return the fluent builder instance.
      */
-    public Builder forDate(final LocalDate dateTime) {
+    public Builder withDate(final LocalDate dateTime) {
       requireNonNull(dateTime, "Null dateTime");
       final String year = String.valueOf(dateTime.getYear());
       final String month = String.format("0%s", String.valueOf(dateTime.getMonthValue()));

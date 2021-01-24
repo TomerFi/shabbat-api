@@ -60,7 +60,7 @@ final class RequestBuilderTest {
   @Test
   void building_a_request_with_a_null_date_throws_a_NullPointerException() {
     assertThatNullPointerException()
-        .isThrownBy(() -> Request.builder().forDate(null).build())
+        .isThrownBy(() -> Request.builder().withDate(null).build())
         .withMessage("Null dateTime");
   }
 
@@ -71,7 +71,7 @@ final class RequestBuilderTest {
             () ->
                 Request.builder()
                     .forGeoId(12345)
-                    .forDate(LocalDate.now())
+                    .withDate(LocalDate.now())
                     .withMinutesBeforeSunset(0)
                     .withMinutesAfterSundown(10)
                     .build());
