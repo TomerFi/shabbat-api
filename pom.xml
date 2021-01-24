@@ -602,18 +602,6 @@ limitations under the License.]]>
   </build>
 
   <profiles>
-    <!-- use this profile manually when deploying to gpr. -->
-    <profile>
-      <id>deploy-github</id>
-      <distributionManagement>
-        <repository>
-          <id>github</id>
-          <name>GitHub Packages</name>
-          <url>https://maven.pkg.github.com/TomerFi/hebcal-api</url>
-        </repository>
-      </distributionManagement>
-    </profile>
-
     <!-- use this profile manually when deploying to ossrh. -->
     <profile>
       <id>deploy-ossrh</id>

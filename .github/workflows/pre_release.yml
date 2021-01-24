@@ -45,8 +45,3 @@ jobs:
           flags: unit-tests
           name: hebcal-api-codecov
           fail_ci_if_error: true
-
-      - name: Deploy to GPR
-        run: mvn deploy -Pprepare-deployment,deploy-github -B -ff
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
