@@ -21,10 +21,26 @@ public final class ResponseItemAssert extends AbstractAssert<ResponseItemAssert,
     super(actual, ResponseItemAssert.class);
   }
 
+  public ResponseItemAssert hebrewPresent() {
+    isNotNull();
+    if (actual.hebrew().isEmpty()) {
+      failWithMessage("Expected hebrew to be present but was not");
+    }
+    return this;
+  }
+
+  public ResponseItemAssert hebrewEmpty() {
+    isNotNull();
+    if (actual.hebrew().isPresent()) {
+      failWithMessage("Expected hebrew to be empty but was not");
+    }
+    return this;
+  }
+
   public ResponseItemAssert hebrewIs(final String testHebrew) {
     isNotNull();
-    if (!actual.hebrew().equals(testHebrew)) {
-      failWithMessage("Expected hebrew to be <%s> but was <%s>", testHebrew, actual.hebrew());
+    if (!actual.hebrew().get().equals(testHebrew)) {
+      failWithMessage("Expected cc to hebrew <%s> but was <%s>", testHebrew, actual.hebrew().get());
     }
     return this;
   }

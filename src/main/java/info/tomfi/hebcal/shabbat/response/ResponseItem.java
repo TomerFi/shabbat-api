@@ -22,7 +22,7 @@ import java.util.Optional;
 @AutoValue
 @JsonDeserialize(builder = AutoValue_ResponseItem.Builder.class)
 public abstract class ResponseItem {
-  public abstract String hebrew();
+  public abstract Optional<String> hebrew();
 
   public abstract String date();
 
@@ -44,7 +44,7 @@ public abstract class ResponseItem {
   @AutoValue.Builder
   public abstract static class Builder {
     @JsonProperty("hebrew")
-    public abstract Builder hebrew(String hebrew);
+    public abstract Builder hebrew(@Nullable String hebrew);
 
     @JsonProperty("date")
     public abstract Builder date(String date);

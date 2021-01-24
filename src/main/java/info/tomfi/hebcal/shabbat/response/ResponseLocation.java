@@ -22,9 +22,9 @@ import java.util.Optional;
 @AutoValue
 @JsonDeserialize(builder = AutoValue_ResponseLocation.Builder.class)
 public abstract class ResponseLocation {
-  public abstract String admin1();
+  public abstract Optional<String> admin1();
 
-  public abstract String asciiname();
+  public abstract Optional<String> asciiname();
 
   public abstract String city();
 
@@ -42,16 +42,16 @@ public abstract class ResponseLocation {
 
   public abstract String title();
 
-  public abstract String tzid();
+  public abstract Optional<String> tzid();
 
   /** Builder abstraction used to deserialize the location json object from the API response. */
   @AutoValue.Builder
   public abstract static class Builder {
     @JsonProperty("admin1")
-    public abstract Builder admin1(String admin1);
+    public abstract Builder admin1(@Nullable String admin1);
 
     @JsonProperty("asciiname")
-    public abstract Builder asciiname(String asciiname);
+    public abstract Builder asciiname(@Nullable String asciiname);
 
     @JsonProperty("city")
     public abstract Builder city(String city);
@@ -78,7 +78,7 @@ public abstract class ResponseLocation {
     public abstract Builder title(String title);
 
     @JsonProperty("tzid")
-    public abstract Builder tzid(String tzid);
+    public abstract Builder tzid(@Nullable String tzid);
 
     public abstract ResponseLocation build();
   }

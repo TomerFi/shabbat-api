@@ -22,19 +22,50 @@ public final class ResponseLocationAssert
     super(actual, ResponseLocationAssert.class);
   }
 
+  public ResponseLocationAssert admin1Present() {
+    isNotNull();
+    if (actual.admin1().isEmpty()) {
+      failWithMessage("Expected admin1 to be present but was not");
+    }
+    return this;
+  }
+
+  public ResponseLocationAssert admin1Empty() {
+    isNotNull();
+    if (actual.admin1().isPresent()) {
+      failWithMessage("Expected admin1 to be empty but was not");
+    }
+    return this;
+  }
+
   public ResponseLocationAssert admin1Is(final String testAdmin1) {
     isNotNull();
-    if (!actual.admin1().equals(testAdmin1)) {
-      failWithMessage("Expected admin1 to be <%s> but was <%s>", testAdmin1, actual.admin1());
+    if (!actual.admin1().get().equals(testAdmin1)) {
+      failWithMessage("Expected admin1 to be <%s> but was <%s>", testAdmin1, actual.admin1().get());
+    }
+    return this;
+  }
+
+  public ResponseLocationAssert asciinamePresent() {
+    isNotNull();
+    if (actual.asciiname().isEmpty()) {
+      failWithMessage("Expected asciiname to be present but was not");
+    }
+    return this;
+  }
+
+  public ResponseLocationAssert asciinameEmpty() {
+    isNotNull();
+    if (actual.asciiname().isPresent()) {
+      failWithMessage("Expected asciiname to be empty but was not");
     }
     return this;
   }
 
   public ResponseLocationAssert asciinameIs(final String testAsciiname) {
     isNotNull();
-    if (!actual.asciiname().equals(testAsciiname)) {
-      failWithMessage(
-          "Expected asciiname to be <%s> but was <%s>", testAsciiname, actual.asciiname());
+    if (!actual.asciiname().get().equals(testAsciiname)) {
+      failWithMessage("Expected cc to asciiname <%s> but was <%s>", testAsciiname, actual.asciiname().get());
     }
     return this;
   }
@@ -80,10 +111,26 @@ public final class ResponseLocationAssert
     return this;
   }
 
+  public ResponseLocationAssert tzidPresent() {
+    isNotNull();
+    if (actual.tzid().isEmpty()) {
+      failWithMessage("Expected tzid to be present but was not");
+    }
+    return this;
+  }
+
+  public ResponseLocationAssert tzidEmpty() {
+    isNotNull();
+    if (actual.tzid().isPresent()) {
+      failWithMessage("Expected tzid to be empty but was not");
+    }
+    return this;
+  }
+
   public ResponseLocationAssert tzidIs(final String testTzid) {
     isNotNull();
-    if (!actual.tzid().equals(testTzid)) {
-      failWithMessage("Expected tzid to be <%s> but was <%s>", testTzid, actual.tzid());
+    if (!actual.tzid().get().equals(testTzid)) {
+      failWithMessage("Expected tzid to be <%s> but was <%s>", testTzid, actual.tzid().get());
     }
     return this;
   }
