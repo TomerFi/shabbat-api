@@ -3,8 +3,17 @@
 <!-- markdownlint-enable MD013 -->
 
 The artifact offers a Java service and provider encapsulating [HebCal][3]'s REST API.</br>
-For the time being, only the [Shabbat times][4] was implemented using the
-publicized [REST API](https://www.hebcal.com/home/197/shabbat-times-rest-api).
+For the time being, only the [Shabbat times][4] was implemented using the publicized
+[REST API](https://www.hebcal.com/home/197/shabbat-times-rest-api).
+
+```xml
+<!-- declare the dependency -->
+<dependency>
+  <groupId>info.tomfi.hebcal</groupId>
+  <artifactId>hebcal-api</artifactId>
+  <version>VERSION</version>
+</dependency>
+```
 
 ```java
 // get the api implementation from the service loader
@@ -57,9 +66,9 @@ REST API with a Java API.
 [4]: https://www.hebcal.com/shabbat
 [5]: https://www.hebcal.com/home/197/shabbat-times-rest-api
 [6]: https://www.geonames.org/
-[7]: https://ossindex.sonatype.org/component/pkg:maven/info.tomfi.hebcal/hebcal-api
+[7]: https://search.maven.org/artifact/info.tomfi.hebcal/hebcal-api
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
 [conventional-commits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
 [gh-build-status]: https://github.com/TomerFi/hebcal-api/workflows/Release/badge.svg
-[maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven
+[maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven&label=Maven%20Central
