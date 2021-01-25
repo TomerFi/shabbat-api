@@ -65,7 +65,8 @@ public final class ResponseLocationAssert
   public ResponseLocationAssert asciinameIs(final String testAsciiname) {
     isNotNull();
     if (!actual.asciiname().get().equals(testAsciiname)) {
-      failWithMessage("Expected cc to asciiname <%s> but was <%s>", testAsciiname, actual.asciiname().get());
+      failWithMessage(
+          "Expected cc to asciiname <%s> but was <%s>", testAsciiname, actual.asciiname().get());
     }
     return this;
   }

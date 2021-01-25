@@ -1,10 +1,13 @@
 <!-- markdownlint-disable MD013 -->
-# A Java API encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![gh-build-status]][0] [![codecov-coverage]][1] [![conventional-commits]][2]
+# A Java API encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1] [![conventional-commits]][2]
 <!-- markdownlint-enable MD013 -->
 
 The artifact offers a Java service and provider encapsulating [HebCal][3]'s REST API.</br>
 For the time being, only the [Shabbat times][4] was implemented using the publicized
 [REST API](https://www.hebcal.com/home/197/shabbat-times-rest-api).
+
+- Requires Java >= 11.
+- Use the [Wiki section][8] for more information.
 
 ```xml
 <!-- declare the dependency -->
@@ -50,6 +53,12 @@ var havdalahItem = itemsList.stream()
 assertThat(havdalahItem).dateIs("2021-01-02T17:36:00+02:00");
 ```
 
+## Links
+
+- [HebCal site][3].
+- [HebCal API docs][5].
+- [GeoNames][10].
+
 ## Disclaimer
 
 This repository has no relations with [HebCal][3].</br>
@@ -66,8 +75,12 @@ REST API with a Java API.
 [5]: https://www.hebcal.com/home/197/shabbat-times-rest-api
 [6]: https://www.geonames.org/
 [7]: https://search.maven.org/artifact/info.tomfi.hebcal/hebcal-api
+[8]: https://github.com/TomerFi/hebcal-api/wiki
+[9]: https://javadoc.io/doc/info.tomfi.hebcal/hebcal-api
+[10]: https://www.geonames.org/
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
 [conventional-commits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
 [gh-build-status]: https://github.com/TomerFi/hebcal-api/workflows/Release/badge.svg
 [maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven&label=Maven%20Central
+[javadoc-io-badge]: https://javadoc.io/badge2/info.tomfi.hebcal/hebcal-api/Javadoc.svg
