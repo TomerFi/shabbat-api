@@ -24,10 +24,10 @@ import com.github.javafaker.Faker;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import info.tomfi.hebcal.shabbat.ShabbatAPI;
-import info.tomfi.hebcal.shabbat.request.FlagStates;
-import info.tomfi.hebcal.shabbat.request.GeoTypes;
-import info.tomfi.hebcal.shabbat.request.OutputTypes;
-import info.tomfi.hebcal.shabbat.request.ParamKeys;
+import info.tomfi.hebcal.shabbat.request.FlagState;
+import info.tomfi.hebcal.shabbat.request.GeoType;
+import info.tomfi.hebcal.shabbat.request.OutputType;
+import info.tomfi.hebcal.shabbat.request.ParamKey;
 import info.tomfi.hebcal.shabbat.request.Request;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -59,14 +59,14 @@ final class ShabbatAPIProviderTest {
     quaryParams =
         Map.of(
             // the following are the default query params required by hebcal api
-            ParamKeys.OUTPUT_FORMAT.key(), containing(OutputTypes.JSON.type()),
-            ParamKeys.INCLUDE_TURAH_HAFTARAH.key(), containing(FlagStates.OFF.state()),
-            ParamKeys.ASHKENAZIS_TRANSLITERATIONS.key(), containing(FlagStates.OFF.state()),
-            ParamKeys.GEO_TYPE.key(), containing(GeoTypes.GEO_NAME.type()),
-            ParamKeys.HAVDALAH.key(), containing("50"),
-            ParamKeys.CANDLE_LIGHTING.key(), containing("18"),
+            ParamKey.OUTPUT_FORMAT.toString(), containing(OutputType.JSON.toString()),
+            ParamKey.INCLUDE_TURAH_HAFTARAH.toString(), containing(FlagState.OFF.toString()),
+            ParamKey.ASHKENAZIS_TRANSLITERATIONS.toString(), containing(FlagState.OFF.toString()),
+            ParamKey.GEO_TYPE.toString(), containing(GeoType.GEO_NAME.toString()),
+            ParamKey.HAVDALAH.toString(), containing("50"),
+            ParamKey.CANDLE_LIGHTING.toString(), containing("18"),
             // the following derives from the request
-            ParamKeys.GEO_ID.key(), containing(String.valueOf(randomGeoId)));
+            ParamKey.GEO_ID.toString(), containing(String.valueOf(randomGeoId)));
 
     mockServer = new WireMockServer(randomPort);
     mockServer.start();

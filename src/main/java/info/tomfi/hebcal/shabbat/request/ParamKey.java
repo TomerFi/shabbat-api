@@ -13,30 +13,31 @@
 package info.tomfi.hebcal.shabbat.request;
 
 /** Enum used to encapsulate the various available query paramter names. */
-public enum ParamKeys {
+public enum ParamKey {
   ASHKENAZIS_TRANSLITERATIONS("a"),
   CANDLE_LIGHTING("b"),
-  CITY("city"), // used with GeoTypes.CITY
-  GEO_ID("geonameid"), // used with GeoTypes.GEO_NAME
+  CITY("city"), // used with GeoType.CITY
+  GEO_ID("geonameid"), // used with GeoType.GEO_NAME
   GEO_TYPE("geo"),
   GREGORIAN_DAY("gd"),
   GREGORIAN_MONTH("gm"),
   GREGORIAN_YEAR("gy"),
   HAVDALAH("m"),
   INCLUDE_TURAH_HAFTARAH("leyning"),
-  LATITUDE("latitude"), // used with GeoTypes.POSITIONAL
-  LONGITUDE("longitude"), // used with GeoTypes.POSITIONAL
+  LATITUDE("latitude"), // used with GeoType.POSITIONAL
+  LONGITUDE("longitude"), // used with GeoType.POSITIONAL
   OUTPUT_FORMAT("cfg"),
-  TZID("tzid"), // used with GeoTypes.POSITIONAL
-  ZIP("zip"); // used with GeoTypes.ZIP
+  TZID("tzid"), // used with GeoType.POSITIONAL
+  ZIP("zip"); // used with GeoType.ZIP
 
-  private final String privKey;
+  private final String key;
 
-  ParamKeys(final String setKey) {
-    privKey = setKey;
+  ParamKey(final String setKey) {
+    key = setKey;
   }
 
-  public String key() {
-    return privKey;
+  @Override
+  public String toString() {
+    return key;
   }
 }

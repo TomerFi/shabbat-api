@@ -101,8 +101,8 @@ final class ResponsTest {
 
   @Test
   void verify_item_categories_um_members_are_non_empty_strings() {
-    assertThat(ItemCategories.values())
+    assertThat(ItemCategory.values())
         .hasSizeGreaterThan(0)
-        .allMatch(c -> !isNullOrEmpty(c.category()));
+        .allMatch(c -> !isNullOrEmpty(c.toString()));
   }
 }

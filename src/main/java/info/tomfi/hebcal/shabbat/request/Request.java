@@ -38,12 +38,12 @@ public abstract class Request {
     /** The builder constructor sets the default query parameters needed for the request. */
     public Builder() {
       queryParams = new HashMap<>();
-      queryParams.put(ParamKeys.OUTPUT_FORMAT.key(), OutputTypes.JSON.type());
-      queryParams.put(ParamKeys.INCLUDE_TURAH_HAFTARAH.key(), FlagStates.OFF.state());
-      queryParams.put(ParamKeys.ASHKENAZIS_TRANSLITERATIONS.key(), FlagStates.OFF.state());
-      queryParams.put(ParamKeys.GEO_TYPE.key(), GeoTypes.GEO_NAME.type());
-      queryParams.put(ParamKeys.HAVDALAH.key(), DEFAULT_HAVDALAH);
-      queryParams.put(ParamKeys.CANDLE_LIGHTING.key(), DEFAULT_CANDLE_LIGHTING);
+      queryParams.put(ParamKey.OUTPUT_FORMAT.toString(), OutputType.JSON.toString());
+      queryParams.put(ParamKey.INCLUDE_TURAH_HAFTARAH.toString(), FlagState.OFF.toString());
+      queryParams.put(ParamKey.ASHKENAZIS_TRANSLITERATIONS.toString(), FlagState.OFF.toString());
+      queryParams.put(ParamKey.GEO_TYPE.toString(), GeoType.GEO_NAME.toString());
+      queryParams.put(ParamKey.HAVDALAH.toString(), DEFAULT_HAVDALAH);
+      queryParams.put(ParamKey.CANDLE_LIGHTING.toString(), DEFAULT_CANDLE_LIGHTING);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Request {
      * @return the constructed request value.
      */
     public Request build() {
-      if (queryParams.containsKey(ParamKeys.GEO_ID.key())) {
+      if (queryParams.containsKey(ParamKey.GEO_ID.toString())) {
         return new AutoValue_Request(queryParams);
       }
       throw new IllegalStateException("geo id is mandatory for this request");
@@ -69,7 +69,7 @@ public abstract class Request {
       if (minutes <= 0) {
         throw new IllegalArgumentException("minutes after sundown should be a positive integer");
       }
-      queryParams.put(ParamKeys.HAVDALAH.key(), String.valueOf(minutes));
+      queryParams.put(ParamKey.HAVDALAH.toString(), String.valueOf(minutes));
       return this;
     }
 
@@ -85,7 +85,7 @@ public abstract class Request {
         throw new IllegalArgumentException(
             "minutes before sunset should be a non negative integer");
       }
-      queryParams.put(ParamKeys.CANDLE_LIGHTING.key(), String.valueOf(minutes));
+      queryParams.put(ParamKey.CANDLE_LIGHTING.toString(), String.valueOf(minutes));
       return this;
     }
 
@@ -100,7 +100,7 @@ public abstract class Request {
       if (geoId <= 0) {
         throw new IllegalArgumentException("geo id should be a positive integer");
       }
-      queryParams.put(ParamKeys.GEO_ID.key(), String.valueOf(geoId));
+      queryParams.put(ParamKey.GEO_ID.toString(), String.valueOf(geoId));
       return this;
     }
 
@@ -116,9 +116,9 @@ public abstract class Request {
       final String month = String.format("0%s", String.valueOf(dateTime.getMonthValue()));
       final String day = String.format("0%s", String.valueOf(dateTime.getDayOfMonth()));
 
-      queryParams.put(ParamKeys.GREGORIAN_YEAR.key(), year);
-      queryParams.put(ParamKeys.GREGORIAN_MONTH.key(), month.substring(month.length() - 2));
-      queryParams.put(ParamKeys.GREGORIAN_DAY.key(), day.substring(month.length() - 2));
+      queryParams.put(ParamKey.GREGORIAN_YEAR.toString(), year);
+      queryParams.put(ParamKey.GREGORIAN_MONTH.toString(), month.substring(month.length() - 2));
+      queryParams.put(ParamKey.GREGORIAN_DAY.toString(), day.substring(month.length() - 2));
       return this;
     }
   }

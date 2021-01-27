@@ -12,18 +12,19 @@
  */
 package info.tomfi.hebcal.shabbat.request;
 
-/** Enum used to encapsulate the values of the various {@link ParamKeys} query parameters. */
-public enum FlagStates {
-  OFF("off"),
-  ON("on");
+/** Enum used to encapsulate the values of the {@link ParamKey#OUTPUT_FORMAT} query parameter. */
+public enum OutputType {
+  JSON("json"),
+  RSS("r");
 
-  private final String privState;
+  private final String type;
 
-  FlagStates(final String setState) {
-    privState = setState;
+  OutputType(final String setType) {
+    type = setType;
   }
 
-  public String state() {
-    return privState;
+  @Override
+  public String toString() {
+    return type;
   }
 }

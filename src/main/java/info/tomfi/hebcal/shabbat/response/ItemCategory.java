@@ -10,20 +10,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package info.tomfi.hebcal.shabbat.request;
+package info.tomfi.hebcal.shabbat.response;
 
-/** Enum used to encapsulate the values of the {@link ParamKeys#OUTPUT_FORMAT} query parameter. */
-public enum OutputTypes {
-  JSON("json"),
-  RSS("r");
+/** Enum used to categorize the various available items in the API response. */
+public enum ItemCategory {
+  CANDLES("candles"),
+  HAVDALAH("havdalah"),
+  HOLIDAY("holiday"),
+  PARASHAT("parashat");
 
-  private final String privType;
+  private final String category;
 
-  OutputTypes(final String setType) {
-    privType = setType;
+  ItemCategory(final String setCategory) {
+    category = setCategory;
   }
 
-  public String type() {
-    return privType;
+  @Override
+  public String toString() {
+    return category;
   }
 }

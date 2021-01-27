@@ -10,22 +10,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package info.tomfi.hebcal.shabbat.response;
+package info.tomfi.hebcal.shabbat.request;
 
-/** Enum used to categorize the various available items in the API response. */
-public enum ItemCategories {
-  CANDLES("candles"),
-  HAVDALAH("havdalah"),
-  HOLIDAY("holiday"),
-  PARASHAT("parashat");
+/** Enum used to encapsulate the values of the {@link ParamKey#GEO_TYPE} query parameter. */
+public enum GeoType {
+  CITY("city"),
+  GEO_NAME("geoname"),
+  POSITIONAL("pos"),
+  ZIP("zip");
 
-  private final String privCategory;
+  private final String type;
 
-  ItemCategories(final String setCategory) {
-    privCategory = setCategory;
+  GeoType(final String setType) {
+    type = setType;
   }
 
-  public String category() {
-    return privCategory;
+  @Override
+  public String toString() {
+    return type;
   }
 }

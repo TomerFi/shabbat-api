@@ -59,9 +59,9 @@ final class RequestTest {
 
   static Stream<Arguments> verify_enum_members_are_non_empty_strings() {
     return Stream.of(
-        arguments(ParamKeys.values(), (Predicate<ParamKeys>) k -> !isNullOrEmpty(k.key())),
-        arguments(OutputTypes.values(), (Predicate<OutputTypes>) t -> !isNullOrEmpty(t.type())),
-        arguments(GeoTypes.values(), (Predicate<GeoTypes>) t -> !isNullOrEmpty(t.type())),
-        arguments(FlagStates.values(), (Predicate<FlagStates>) s -> !isNullOrEmpty(s.state())));
+        arguments(ParamKey.values(), (Predicate<ParamKey>) k -> !isNullOrEmpty(k.toString())),
+        arguments(OutputType.values(), (Predicate<OutputType>) t -> !isNullOrEmpty(t.toString())),
+        arguments(GeoType.values(), (Predicate<GeoType>) t -> !isNullOrEmpty(t.toString())),
+        arguments(FlagState.values(), (Predicate<FlagState>) s -> !isNullOrEmpty(s.toString())));
   }
 }

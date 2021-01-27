@@ -12,20 +12,19 @@
  */
 package info.tomfi.hebcal.shabbat.request;
 
-/** Enum used to encapsulate the values of the {@link ParamKeys#GEO_TYPE} query parameter. */
-public enum GeoTypes {
-  CITY("city"),
-  GEO_NAME("geoname"),
-  POSITIONAL("pos"),
-  ZIP("zip");
+/** Enum used to encapsulate the values of the various {@link ParamKey} query parameters. */
+public enum FlagState {
+  OFF("off"),
+  ON("on");
 
-  private final String privType;
+  private final String state;
 
-  GeoTypes(final String setType) {
-    privType = setType;
+  FlagState(final String setState) {
+    state = setState;
   }
 
-  public String type() {
-    return privType;
+  @Override
+  public String toString() {
+    return state;
   }
 }
