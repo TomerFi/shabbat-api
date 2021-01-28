@@ -44,7 +44,12 @@ public final class ItemExtractors {
       final List<ResponseItem> items,
       final Comparator<? super ResponseItem> sorter,
       final ItemCategory... categories) {
-    requireNonNull(categories, () -> "at least one item category is required");
+    if (categories.length <= 0) {
+      throw new IllegalArgumentException("at least one item category is required");
+    }
+    for (var cat : categories) {
+      requireNonNull(cat, () -> "a category can not be null");
+    }
     var catList = Stream.of(categories).map(ItemCategory::toString).collect(toSet());
     return items.stream()
         .filter(it -> catList.contains(it.category()))
@@ -53,7 +58,7 @@ public final class ItemExtractors {
   }
 
   /**
-   * Extract item by from a given list matching a given date and category.
+   * Extract an item from a given list matching a given date and category.
    *
    * @param items list of the items to iterate over.
    * @param shabbatDate the date to match the items to.

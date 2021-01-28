@@ -37,7 +37,8 @@ and executed with the [Platform Plugin](https://github.com/sormuras/junit-platfo
 
 ## Mutation Testing
 
-This project is configured for using [Pitest](https://pitest.org/).</br>
+This project is configured for using [Pitest](https://pitest.org/) with the
+[Descartes engine](https://github.com/STAMP-project/pitest-descartes).</br>
 Although not passing mutation testing will not fail the build,</br>
 It is encourged to be manually used in development stage to achive more reliable unit test results.
 

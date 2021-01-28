@@ -18,11 +18,14 @@ import static info.tomfi.hebcal.shabbat.response.ItemCategory.HOLIDAY;
 import static info.tomfi.hebcal.shabbat.tools.Comparators.byItemDate;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 import static org.assertj.core.api.BDDAssertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.assertThatExceptionOfType;
+import static org.assertj.core.api.BDDAssertions.assertThatNullPointerException;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.mockito.BDDMockito.when;
 import static org.mockito.quality.Strictness.LENIENT;
 
+import info.tomfi.hebcal.shabbat.response.ItemCategory;
 import info.tomfi.hebcal.shabbat.response.ResponseItem;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -38,7 +41,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 /** Extracting tools test cases. */
 @Tag("unit-tests")
 @MockitoSettings(strictness = LENIENT)
-final class ItemExtractorTest {
+final class ItemExtractorsTest {
   @Mock private ResponseItem holidayItem;
   @Mock private ResponseItem candlesHolidayItem;
   @Mock private ResponseItem havdalaHolidayItem;
@@ -102,7 +105,7 @@ final class ItemExtractorTest {
   }
 
   @Test
-  void reducing_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items() {
+  void extracting_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items() {
     // when invoking the getItemFromResponse for the CANDLES and HAVDALAH categories
     var items = ItemExtractors.extractAndSort(allItems, byItemDate(), CANDLES, HAVDALAH);
     // then the items returned doesn't include the holiday item, its not a candles nor havdala item
@@ -111,5 +114,25 @@ final class ItemExtractorTest {
         .containsExactly(
             candlesHolidayItem, havdalaHolidayItem, candlesShabbatItem, havdalaShabbatItem)
         .isSortedAccordingTo(byItemDate());
+  }
+
+  @Test
+  void extracting_with_no_categories_selected_throws_an_illegal_argument_exception() {
+    assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> ItemExtractors.extractAndSort(allItems, byItemDate()));
+  }
+
+  @Test
+  void extracting_with_null_as_a_one_of_the_categories_selected_throws_a_null_pointer_exception() {
+    assertThatNullPointerException()
+        .isThrownBy(
+            () ->
+                ItemExtractors.extractAndSort(allItems, byItemDate(), ItemCategory.CANDLES, null));
+  }
+
+  @Test
+  void instantiating_the_utility_class_with_the_default_ctor_throws_an_illegal_access_exception() {
+    assertThatExceptionOfType(IllegalAccessException.class)
+        .isThrownBy(() -> ItemExtractors.class.getDeclaredConstructor().newInstance());
   }
 }
