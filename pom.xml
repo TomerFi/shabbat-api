@@ -3,7 +3,7 @@
 
   <groupId>info.tomfi.hebcal</groupId>
   <artifactId>hebcal-api</artifactId>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>0.3.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Hebcal API</name>
   <description>A Java API encapsulating HebCal's REST API.</description>
