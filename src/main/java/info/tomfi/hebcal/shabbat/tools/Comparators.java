@@ -24,6 +24,11 @@ public final class Comparators {
     //
   }
 
+  /**
+   * Comparator used for natural ordering by ResponseItem date field.
+   *
+   * @return a comparator bi-function of response items.
+   */
   public static Comparator<? super ResponseItem> byItemDate() {
     return (p, c) ->
         parse(p.date(), ISO_OFFSET_DATE_TIME).compareTo(parse(c.date(), ISO_OFFSET_DATE_TIME));
