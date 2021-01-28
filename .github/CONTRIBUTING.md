@@ -27,12 +27,14 @@ docker run --rm -e RUN_LOCAL=true -e OUTPUT_FORMAT=tap -e OUTPUT_DETAILS=detaile
 
 ## JPMS Project
 
-This project leverage `JPMS`, note the [module-info.java descriptior](../src/main/java/module-info.java),</br>
+This project leverage `JPMS`, note the
+[module-info.java descriptior](../src/main/java/module-info.java),</br>
 and the [module-info.test instructions file](../src/test/java/module-info.test).
 
 ## Unit Testing
 
-Unit testing is written with [Junit 5](https://junit.org/junit5/) and a bunch of other cool tools and frameworks,</br>
+Unit testing is written with [Junit 5](https://junit.org/junit5/) and a bunch of other cool tools and
+frameworks,</br>
 and executed with the [Platform Plugin](https://github.com/sormuras/junit-platform-maven-plugin).
 
 ## Mutation Testing
