@@ -36,7 +36,7 @@ public final class ItemExtractors {
    * Extract items by a given category from a given list and sort by a given comparator.
    *
    * @param items the list items to iterate over.
-   * @param sorter the respones item comprator used for sorting.
+   * @param sorter the response item comprator used for sorting.
    * @param categories the item categories to be extracted.
    * @return a list of the extracted response item.
    */
