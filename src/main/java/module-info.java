@@ -1,6 +1,7 @@
 module info.tomfi.hebcal.shabbat {
   exports info.tomfi.hebcal.shabbat.request;
   exports info.tomfi.hebcal.shabbat.response;
+  exports info.tomfi.hebcal.shabbat.tools;
 
   uses info.tomfi.hebcal.shabbat.ShabbatAPI;
 
