@@ -5,6 +5,6 @@
 "scope: ci":
   - .github/**/*
 "scope: sources":
-  - src/**/*
+  - src/main/**/*
 "scope: tests":
-  - tests/**/*
+  - src/test/**/*

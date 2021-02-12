@@ -58,14 +58,8 @@ jobs:
         with:
           java-version: 11
 
-      - name: Check source files License header
-        run: mvn license:check -B -ff
-
-      - name: Build, test and verify
-        run: mvn clean verify -B -ff
-
-      - name: Verify coverage and create report
-        run: mvn jacoco:report -B -ff
+      - name: Verify the project and create coverage report
+        run: mvn clean verify jacoco:report -B -ff
 
       - name: Upload coverage report as artifact
         uses: actions/upload-artifact@v2.2.1
