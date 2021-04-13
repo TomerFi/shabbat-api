@@ -25,7 +25,7 @@
     <equalsverifier.version>3.5.5</equalsverifier.version>
     <extra-enforcer-rules.version>1.2</extra-enforcer-rules.version>
     <hamcrest.version>2.2</hamcrest.version>
-    <jackson.version>2.12.2</jackson.version>
+    <jackson.version>2.12.3</jackson.version>
     <javafaker.version>1.0.2</javafaker.version>
     <junit-jupiter.version>5.7.1</junit-jupiter.version>
     <opentest4j.version>1.2.0</opentest4j.version>
