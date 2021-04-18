@@ -38,7 +38,7 @@ var itemsList = response.items().get();
 
 // find the candles item
 var candlesItem = itemsList.stream()
-    .filter(item -> item.category().equals(CANDLES.category()))
+    .filter(item -> item.category().equals(CANDLES.toString()))
     .findFirst()
     .get();
 // the shabbat started on the 2021-01-01 at 16:05
@@ -46,7 +46,7 @@ assertThat(candlesItem).dateIs("2021-01-01T16:05:00+02:00");
 
 // find the havdalah item
 var havdalahItem = itemsList.stream()
-    .filter(item -> item.category().equals(HAVDALAH.category()))
+    .filter(item -> item.category().equals(HAVDALAH.toString()))
     .findFirst()
     .get();
 // the shabbat ended on the 2021-01-02 at 17:36
