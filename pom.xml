@@ -33,7 +33,7 @@
     <mockito.version>3.11.0</mockito.version>
     <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
     <slf4j.version>1.7.28</slf4j.version>
-    <wiremock.version>2.28.0</wiremock.version>
+    <wiremock.version>2.28.1</wiremock.version>
     <!-- Plugins -->
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
