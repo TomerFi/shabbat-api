@@ -63,7 +63,7 @@ jobs:
         run: mvn clean verify jacoco:report -B -ff
 
       - name: Upload coverage report as artifact
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: coverage-report
           path: target/site/jacoco/jacoco.xml
