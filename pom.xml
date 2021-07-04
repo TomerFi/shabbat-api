@@ -15,6 +15,7 @@
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
+    <asm.version>9.2</asm.version>
     <assertj.version>3.20.2</assertj.version>
     <auto-service.version>1.0</auto-service.version>
     <auto-value.version>1.8.1</auto-value.version>
@@ -192,6 +193,11 @@
         <groupId>net.minidev</groupId>
         <artifactId>json-smart</artifactId>
         <version>${json-smart.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
       </dependency>
       <dependency>
         <groupId>org.hamcrest</groupId>
