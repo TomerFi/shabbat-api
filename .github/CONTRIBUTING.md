@@ -1,4 +1,4 @@
-# Contributing to `hebcal-api`
+# Contributing to `hebcal-api`</br>[![conventional-commits]][0]
 
 :clap: First off, thank you for taking the time to contribute. :clap:
 
@@ -51,3 +51,8 @@ mvn pitest:mutationCoverage
 ### Code of Conduct
 
 Please check the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) document before contributing.
+
+<!-- Real Links -->
+[0]: https://conventionalcommits.org
+<!-- Badges Links -->
+[conventional-commits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
