@@ -18,7 +18,7 @@
     <asm.version>9.2</asm.version>
     <assertj.version>3.20.2</assertj.version>
     <auto-service.version>1.0</auto-service.version>
-    <auto-value.version>1.8.1</auto-value.version>
+    <auto-value.version>1.8.2</auto-value.version>
     <awaitility.version>4.1.0</awaitility.version>
     <byte-buddy.version>1.11.8</byte-buddy.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
