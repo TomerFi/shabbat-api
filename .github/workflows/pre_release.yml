@@ -21,6 +21,8 @@ jobs:
         with:
           distribution: adopt
           java-version: 11
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
 
       - name: Cache Maven Repository
         uses: actions/cache@v2.1.6
@@ -33,6 +35,7 @@ jobs:
         run: mvn deploy -Pprepare-deployment,sign-deployment -B -ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
