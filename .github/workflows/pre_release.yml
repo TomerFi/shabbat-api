@@ -32,7 +32,7 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Deploy to GPR
-        run: mvn deploy -Pprepare-deployment,sign-deployment -B -ff
+        run: mvn deploy -Pprepare-deployment,sign-deployment,deploy-github -B -ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

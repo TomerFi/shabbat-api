@@ -69,7 +69,7 @@ The artifact constructed with this repository merely wraps the publicly open RES
 API.
 
 <!-- Real Links -->
-[0]: https://github.com/TomerFi/hebcal-api/actions?query=workflow%3APre-release
+[0]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml
 [1]: https://codecov.io/gh/TomerFi/hebcal-api
 [3]: https://www.hebcal.com/
 [4]: https://www.hebcal.com/shabbat
@@ -82,7 +82,7 @@ API.
 [11]: https://openjdk.java.net/projects/jdk/11/
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
-[gh-build-status]: https://github.com/TomerFi/hebcal-api/workflows/Release/badge.svg
+[gh-build-status]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml/badge.svg
 [maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven&label=Maven%20Central
 [javadoc-io-badge]: https://javadoc.io/badge2/info.tomfi.hebcal/hebcal-api/Javadoc.io.svg
 [java-min-version]: https://badgen.net/badge/Java%20Version/11/5382a1
