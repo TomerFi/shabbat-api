@@ -31,7 +31,13 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
+      - name: Get current project version
+        id: currentVersion
+        # yamllint disable-line rule:line-length
+        run: echo "::set-output name=text::$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml)"
+
       - name: Deploy to GPR
+        if: contains(steps.currentVersion.outputs.text, 'SNAPSHOT')
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-github -B -ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
