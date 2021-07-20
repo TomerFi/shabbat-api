@@ -3,7 +3,7 @@
 
   <groupId>info.tomfi.hebcal</groupId>
   <artifactId>hebcal-api</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Hebcal API</name>
   <description>A Java API encapsulating HebCal's REST API.</description>
@@ -84,7 +84,7 @@
     <url>https://github.com/TomerFi/hebcal-api</url>
     <connection>scm:git:git@github.com:TomerFi/hebcal-api.git</connection>
     <developerConnection>scm:git:git@github.com:TomerFi/hebcal-api.git</developerConnection>
-    <tag>1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <ciManagement>
