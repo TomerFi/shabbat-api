@@ -88,7 +88,7 @@ Dockerfile* text eol=crlf
 *.map binary
 *.php text eol=lf diff=php
 *.scss text eol=lf diff=css
-*.xml text eol=crlf
+*.xml text eol=lf
 *.xhtml text eol=lf diff=html
 # Binary files
 *.class binary
