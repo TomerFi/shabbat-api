@@ -55,6 +55,7 @@
     <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
     <junit-platform-maven-plugin.version>1.1.2</junit-platform-maven-plugin.version>
     <license-maven-plugin.version>4.1</license-maven-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <pitest-maven.version>1.6.7</pitest-maven.version>
   </properties>
 
@@ -524,6 +525,12 @@ limitations under the License.]]>
           </configuration>
         </plugin>
 
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${nexus-staging-maven-plugin.version}</version>
+        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -699,11 +706,28 @@ limitations under the License.]]>
           <id>ossrh</id>
           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-        <repository>
+        <!-- the repositiory for releases is configured with nexus-staging-maven-plugin -->
+        <!--<repository>
           <id>ossrh</id>
           <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
+        </repository>-->
       </distributionManagement>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+
     </profile>
 
     <!-- use this profile manually for packaging of jars to deploy to artifact repository. -->
