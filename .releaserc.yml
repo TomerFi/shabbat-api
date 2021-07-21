@@ -1,0 +1,77 @@
+---
+branches:
+  - master
+repositoryUrl: git@github.com:TomerFi/hebcal-api.git
+tagFormat: ${version}
+preset: conventionalcommits
+parserOpts:
+  noteKeywords:
+    - BREAK
+    - BREAKS
+    - BREAKING
+    - BREAKING CHANGE
+    - BREAKING CHANGES
+plugins:
+  - "@semantic-release/github"
+  - "@conveyal/maven-semantic-release"
+  - - "@semantic-release/commit-analyzer"
+    - releaseRules:
+        - breaking: true
+          release: major
+        - revert: true
+          release: patch
+        - type: feat
+          release: minor
+        - type: fix
+          release: patch
+        - type: perf
+          release: patch
+        - type: revert
+          release: patch
+        - type: refactor
+          release: patch
+        - type: docs
+          release: false
+        - type: style
+          release: false
+        - type: chore
+          release: false
+        - type: test
+          release: false
+        - type: ci
+          release: false
+        - type: build
+          release: false
+  - - "@semantic-release/release-notes-generator"
+    - presetConfig:
+        types:
+          - type: feat
+            section: Features
+          - type: fix
+            section: Bug Fixes
+          - type: perf
+            section: Performance Improvements
+          - type: revert
+            section: Reverts
+          - type: refactor
+            section: Code Refactoring
+          - type: docs
+            section: Documentation
+          - type: build
+            scope: deps
+            section: Dependency Bumps
+          - type: style
+            section: Styles
+            hidden: true
+          - type: chore
+            section: Miscellaneous Chores
+            hidden: true
+          - type: test
+            section: Tests
+            hidden: true
+          - type: build
+            section: Build System
+            hidden: true
+          - type: ci
+            section: Continuous Integration
+            hidden: true
