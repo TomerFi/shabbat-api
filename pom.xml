@@ -381,6 +381,7 @@
           <configuration>
             <arguments>-Pprepare-deployment,sign-deployment,deploy-ossrh</arguments>
             <scmCommentPrefix>build(release): </scmCommentPrefix>
+            <signTag>true</signTag>
           </configuration>
         </plugin>
         <plugin>
