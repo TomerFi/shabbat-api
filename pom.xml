@@ -721,7 +721,7 @@ limitations under the License.]]>
             <extensions>true</extensions>
             <configuration>
               <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2</nexusUrl>
+              <nexusUrl>https://oss.sonatype.org</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
           </plugin>
