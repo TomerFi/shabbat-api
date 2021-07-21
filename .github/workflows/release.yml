@@ -44,7 +44,6 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global commit.gpgSign true
           git config --global tag.gpgSign true
-          git config --global push.gpgSign true
           git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
           git pull
 
