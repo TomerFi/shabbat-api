@@ -36,8 +36,8 @@ jobs:
 
       - name: Configure git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
+          git config --global user.email "${{ secrets.GIT_VERIFIED_USER_EMAIL }}"
           git config --global commit.gpgSign true
           git config --global tag.gpgSign true
           git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
@@ -50,11 +50,13 @@ jobs:
 
       - name: Get current project version
         id: currentVersion
-        # yamllint disable-line rule:line-length
-        run: echo "::set-output name=text::$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml)"
+        uses: QwerMike/xpath-action@v1
+        with:
+          filename: pom.xml
+          expression: '/*[local-name()="project"]/*[local-name()="version"]/text()'
 
       - name: Deploy snapshot to OSSRH
-        if: endsWith(steps.currentVersion.outputs.text, '-SNAPSHOT')
+        if: endsWith(steps.currentVersion.outputs.result, '-SNAPSHOT')
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
