@@ -689,28 +689,12 @@ limitations under the License.]]>
   <profiles>
     <!-- use this profile manually when deploying to ossrh. -->
     <profile>
-      <id>deploy-github</id>
-      <distributionManagement>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/TomerFi/hebcal-api</url>
-        </repository>
-      </distributionManagement>
-    </profile>
-
-    <!-- use this profile manually when deploying to ossrh. -->
-    <profile>
       <id>deploy-ossrh</id>
       <distributionManagement>
         <snapshotRepository>
           <id>ossrh</id>
           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-        <!-- the repositiory for releases is configured with nexus-staging-maven-plugin -->
-        <!--<repository>
-          <id>ossrh</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>-->
       </distributionManagement>
 
       <build>
