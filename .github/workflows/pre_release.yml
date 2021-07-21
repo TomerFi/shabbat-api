@@ -37,7 +37,7 @@ jobs:
         run: echo "::set-output name=text::$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml)"
 
       - name: Deploy to GPR
-        if: contains(steps.currentVersion.outputs.text, 'SNAPSHOT')
+        if: endsWith(steps.currentVersion.outputs.text, '-SNAPSHOT')
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-github -B -ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,3 +55,8 @@ jobs:
         with:
           file: target/site/jacoco/jacoco.xml
           fail_ci_if_error: true
+
+      - name: Delete oldest from GPR
+        uses: actions/delete-package-versions@v1.0.3
+        with:
+          package-name: 'info.tomfi.hebcal.hebcal-api'
