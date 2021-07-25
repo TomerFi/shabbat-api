@@ -2,8 +2,7 @@
 # A Java API encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1]
 <!-- markdownlint-enable MD013 -->
 
-The library offers a Java Service encapsulating [HebCal][3]'s REST API.</br>
-It also provides a command line script that encapsulates some of the library functionality using [JBang][12].
+The library offers a Java Service encapsulating [HebCal][3]'s REST API.
 
 Using the API:
 
@@ -20,6 +19,8 @@ assertThat(response.location()).titleIs("Jerusalem, Israel");
 assertThat(getShabbatStart(response).toString()).isEqualTo("2021-01-01T16:05:00+02:00")
 assertThat(getShabbatEnd(response).toString()).isEqualTo("2021-01-02T17:36:00+02:00")
 ```
+
+Also provided, a command line script that encapsulates some of the library functionality using [JBang][12].
 
 Using [JBang][12]:
 
