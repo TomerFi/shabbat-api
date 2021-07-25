@@ -144,7 +144,7 @@ final class HelpersTest {
   }
 
   @TestFactory
-  Stream<DynamicTest> getting_the_first_item_by_category_should_return_the_first_occurence_of_the_matching_item(
+  Stream<DynamicTest> getting_the_first_item_by_category_should_return_the_first_occurrence_of_the_matching_item(
       @Mock final Response response) {
     given(response.items()).willReturn(Optional.of(allItems));
     return Stream.of(

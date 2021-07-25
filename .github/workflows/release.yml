@@ -62,12 +62,14 @@ jobs:
             @conveyal/maven-semantic-release
             conventional-changelog-conventionalcommits
 
-      - name: Dispatch release event
+      - name: Dispatch release event for jbang catalog
         if: steps.semver.outputs.new_release_published == 'true'
         uses: peter-evans/repository-dispatch@v1.1.3
         with:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
+          repository: TomerFi/jbang-catalog
+          client-payload: '{"release": "${{ steps.semver.outputs.new_release_version }}"}'
 
       - name: Tweet new release
         if: steps.semver.outputs.new_release_published == 'true'

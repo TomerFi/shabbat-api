@@ -2,56 +2,41 @@
 # A Java API encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1]
 <!-- markdownlint-enable MD013 -->
 
-The library offers a Java service and provider encapsulating [HebCal][3]'s REST API.
+The library offers a Java Service encapsulating [HebCal][3]'s REST API.</br>
+It also provides a command line script that encapsulates some of the library functionality using [JBang][12].
 
-Head on over to the [Wiki section][8] for more information.</br>
-Take a look at the [Javadoc][9] for API documentation.</br>
-
-A brief usage example:
-
-```xml
-<!-- declare the dependency -->
-<dependency>
-  <groupId>info.tomfi.hebcal</groupId>
-  <artifactId>hebcal-api</artifactId>
-  <version>VERSION</version>
-</dependency>
-```
+Using the API:
 
 ```java
 // get the provider from the service loader
 var shabbatApi = ServiceLoader.load(ShabbatAPI.class).findFirst().get();
-// build a request (omit the withDate step to fetch the closest next shabbat)
+// build a request (omit the withDate step to fetch the next shabbat)
 var request = Request.builder().forGeoId(281184).withDate(LocalDate.of(2021, 1, 1)).build();
-// get the future for the reponse
-var completableFuture = shabbatApi.sendAsync(request);
-// do what ever you need to do
-// ...
-// or just wait for the resoponse
-var response = completableFuture.get();
+// get the response
+var response = shabbatApi.sendAsync(request).get();
 
 // 281184 is the geoid for jerusalem israel
 assertThat(response.location()).titleIs("Jerusalem, Israel");
-
-// get the various items collection
-var itemsList = response.items().get();
-
-// find the candles item
-var candlesItem = itemsList.stream()
-    .filter(item -> item.category().equals(CANDLES.toString()))
-    .findFirst()
-    .get();
-// the shabbat started on the 2021-01-01 at 16:05
-assertThat(candlesItem).dateIs("2021-01-01T16:05:00+02:00");
-
-// find the havdalah item
-var havdalahItem = itemsList.stream()
-    .filter(item -> item.category().equals(HAVDALAH.toString()))
-    .findFirst()
-    .get();
-// the shabbat ended on the 2021-01-02 at 17:36
-assertThat(havdalahItem).dateIs("2021-01-02T17:36:00+02:00");
+assertThat(getShabbatStart(response).toString()).isEqualTo("2021-01-01T16:05:00+02:00")
+assertThat(getShabbatEnd(response).toString()).isEqualTo("2021-01-02T17:36:00+02:00")
 ```
+
+Using [JBang][12]:
+
+```shell
+jbang shabbat_times@tomerfi -g 281184 -d 2021-01-01
+```
+
+Will print:
+
+```text
+Shabbat times for Jerusalem, Israel:
+- starts on Friday, 1 January 2021, 16:06
+- ends on Saturday, 2 January 2021, 17:37
+```
+
+Head on over to the [Wiki section][8] for more information and additional use cases.</br>
+Take a look at the [Javadoc][9] for API documentation.</br>
 
 ## Links
 
@@ -80,6 +65,7 @@ API.
 [9]: https://javadoc.io/doc/info.tomfi.hebcal/hebcal-api
 [10]: https://www.geonames.org/
 [11]: https://openjdk.java.net/projects/jdk/11/
+[12]: https://www.jbang.dev/
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
 [gh-build-status]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml/badge.svg

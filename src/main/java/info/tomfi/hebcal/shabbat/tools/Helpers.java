@@ -63,7 +63,7 @@ public final class Helpers {
   }
 
   /**
-   * Get the first occurence of an item matching the given {@link ItemCategory} and
+   * Get the first occurrence of an item matching the given {@link ItemCategory} and
    * {@link LocalDate}.
    *
    * @param items list of the items to iterate over.
@@ -80,7 +80,7 @@ public final class Helpers {
   }
 
   /**
-   * Get the first occurence of an item from a given response.
+   * Get the first occurrence of an item from a given response.
    *
    * @param response the response to get the item from.
    * @param category the category to match the item to.
@@ -97,7 +97,7 @@ public final class Helpers {
   }
 
   /**
-   * Get the first occurence of the Candles item from a given response.
+   * Get the first occurrence of the Candles item from a given response.
    *
    * @param response the response to get the candles item from.
    * @return an optional response item.
@@ -107,7 +107,7 @@ public final class Helpers {
   }
 
   /**
-   * Get the first occurence of the Havdalah item from a given response.
+   * Get the first occurrence of the Havdalah item from a given response.
    *
    * @param response the response to get the havdalah item from.
    * @return an optional response item.
