@@ -112,9 +112,9 @@ public abstract class Request {
      */
     public Builder withDate(final LocalDate dateTime) {
       requireNonNull(dateTime, "Null dateTime");
-      final String year = String.valueOf(dateTime.getYear());
-      final String month = String.format("0%s", String.valueOf(dateTime.getMonthValue()));
-      final String day = String.format("0%s", String.valueOf(dateTime.getDayOfMonth()));
+      var year = String.valueOf(dateTime.getYear());
+      var month = String.format("0%s", String.valueOf(dateTime.getMonthValue()));
+      var day = String.format("0%s", String.valueOf(dateTime.getDayOfMonth()));
 
       queryParams.put(ParamKey.GREGORIAN_YEAR.toString(), year);
       queryParams.put(ParamKey.GREGORIAN_MONTH.toString(), month.substring(month.length() - 2));

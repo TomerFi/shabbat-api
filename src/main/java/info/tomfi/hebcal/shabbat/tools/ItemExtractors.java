@@ -12,6 +12,8 @@
  */
 package info.tomfi.hebcal.shabbat.tools;
 
+import static info.tomfi.hebcal.shabbat.response.ItemCategory.CANDLES;
+import static info.tomfi.hebcal.shabbat.response.ItemCategory.HAVDALAH;
 import static java.time.ZonedDateTime.parse;
 import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static java.util.Objects.requireNonNull;
@@ -19,8 +21,10 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 import info.tomfi.hebcal.shabbat.response.ItemCategory;
+import info.tomfi.hebcal.shabbat.response.Response;
 import info.tomfi.hebcal.shabbat.response.ResponseItem;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -71,5 +75,69 @@ public final class ItemExtractors {
         .filter(item -> item.category().equals(category.toString()))
         .filter(item -> parse(item.date(), ISO_OFFSET_DATE_TIME).toLocalDate().equals(shabbatDate))
         .findFirst();
+  }
+
+  /**
+   * Get the first occurence of an item from a given response.
+   *
+   * @param response the response to get the item from.
+   * @param category the category to match the item to.
+   * @return an optional response item.
+   */
+  public static Optional<ResponseItem> getFirstItemOf(final Response response, final ItemCategory category) {
+    var items = response.items();
+    if (items.isEmpty() || items.get().isEmpty()) {
+      throw new IllegalArgumentException("response has no items");
+    }
+    return items.get().stream()
+        .filter(item -> item.category().equals(category.toString())).findFirst();
+  }
+
+  /**
+   * Get the first occurence of the Candles item from a given response.
+   *
+   * @param response the response to get the candles item from.
+   * @return an optional response item.
+   */
+  public static Optional<ResponseItem> getCandlesItem(final Response response) {
+    return getFirstItemOf(response, CANDLES);
+  }
+
+  /**
+   * Get the first occurence of the Havdalah item from a given response.
+   *
+   * @param response the response to get the havdalah item from.
+   * @return an optional response item.
+   */
+  public static Optional<ResponseItem> getHavdalaItem(final Response response) {
+    return getFirstItemOf(response, HAVDALAH);
+  }
+
+  /**
+   * Get the shabbat start time from a given response.
+   *
+   * @param response the response to get the start time from.
+   * @return an OffsetDateTime instance represnting the start time of the shabbat.
+   */
+  public static OffsetDateTime getShabbatStart(final Response response) {
+    var item = getCandlesItem(response);
+    if (item.isPresent()) {
+      return OffsetDateTime.parse(item.get().date(), ISO_OFFSET_DATE_TIME);
+    }
+    throw new IllegalArgumentException("no candles item found");
+  }
+
+  /**
+   * Get the shabbat end time from a given response.
+   *
+   * @param response the response to get the end time from.
+   * @return an OffsetDateTime instance represnting the end time of the shabbat.
+   */
+  public static OffsetDateTime getShabbatEnd(final Response response) {
+    var item = getHavdalaItem(response);
+    if (item.isPresent()) {
+      return OffsetDateTime.parse(item.get().date(), ISO_OFFSET_DATE_TIME);
+    }
+    throw new IllegalArgumentException("no havdala item found");
   }
 }

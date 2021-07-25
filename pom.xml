@@ -30,6 +30,7 @@
     <javafaker.version>1.0.2</javafaker.version>
     <json-smart.version>2.4.7</json-smart.version>
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
+    <junit-pioneer.version>1.4.2</junit-pioneer.version>
     <opentest4j.version>1.2.0</opentest4j.version>
     <mockito.version>3.11.1</mockito.version>
     <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
@@ -163,6 +164,11 @@
         <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.junit-pioneer</groupId>
+        <artifactId>junit-pioneer</artifactId>
+        <version>${junit-pioneer.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-core</artifactId>
         <version>${hamcrest.version}</version>
@@ -289,6 +295,16 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit-pioneer</groupId>
+      <artifactId>junit-pioneer</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-commons</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- PIT needs jupiter engine on the classpath. -->
     <dependency>
