@@ -20,9 +20,8 @@ assertThat(getShabbatStart(response).toString()).isEqualTo("2021-01-01T16:05:00+
 assertThat(getShabbatEnd(response).toString()).isEqualTo("2021-01-02T17:36:00+02:00")
 ```
 
-Also provided, a command line script that encapsulates some of the library functionality using [JBang][12].
-
-Using [JBang][12]:
+Also provided, a command line script that encapsulates some of the library functionality,</br>
+using [JBang][12]:
 
 ```shell
 jbang shabbat_times@tomerfi -g 281184 -d 2021-01-01
