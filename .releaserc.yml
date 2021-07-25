@@ -1,6 +1,4 @@
 ---
-branches:
-  - master
 repositoryUrl: git@github.com:TomerFi/hebcal-api.git
 tagFormat: ${version}
 preset: conventionalcommits
