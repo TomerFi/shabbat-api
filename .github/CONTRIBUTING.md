@@ -19,10 +19,10 @@ Contributing is pretty straight-forward:
 ### Run Superlinter Locally
 
 ```shell
-docker run --rm -e RUN_LOCAL=true -e OUTPUT_FORMAT=tap -e OUTPUT_DETAILS=detailed \
--e LINTER_RULES_PATH=. -e VALIDATE_EDITORCONFIG=true -e VALIDATE_JAVA=true -e VALIDATE_JSON=true \
--e VALIDATE_MARKDOWN=true -e VALIDATE_XML=true -e VALIDATE_YAML=true \
--e FILTER_REGEX_EXCLUDE="(.git|.*.tap|/target/)" -v ${PWD}:/tmp/lint ghcr.io/github/super-linter:slim-v4
+docker run --rm -e RUN_LOCAL=true -e LINTER_RULES_PATH=. -e VALIDATE_EDITORCONFIG=true \
+-e VALIDATE_JAVA=true -e VALIDATE_JSON=true -e VALIDATE_MARKDOWN=true -e VALIDATE_XML=true \
+-e VALIDATE_YAML=true -e FILTER_REGEX_EXCLUDE="(.git|.*.tap|/target/)" \
+-v ${PWD}:/tmp/lint ghcr.io/github/super-linter:slim-v4
 ```
 
 ### JPMS Project

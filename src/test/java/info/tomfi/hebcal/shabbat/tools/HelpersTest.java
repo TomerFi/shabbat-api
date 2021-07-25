@@ -145,7 +145,7 @@ final class HelpersTest {
 
   @TestFactory
   Stream<DynamicTest> getting_the_first_item_by_category_should_return_the_first_occurence_of_the_matching_item(
-      @Mock Response response) {
+      @Mock final Response response) {
     given(response.items()).willReturn(Optional.of(allItems));
     return Stream.of(
       dynamicTest(
@@ -165,7 +165,7 @@ final class HelpersTest {
 
   @CartesianProductTest(factory = "categoryItemsAndEmptyItemListsMatrix")
   void attempting_to_get_the_first_item_of_a_category_from_a_response_with_no_items_should_throw_an_exception(
-      final ItemCategory category, Optional<List<ResponseItem>> returnItems, @Mock final Response response) {
+      final ItemCategory category, final Optional<List<ResponseItem>> returnItems, @Mock final Response response) {
     given(response.items()).willReturn(returnItems);
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() -> Helpers.getFirstItemOf(response, category))
@@ -176,8 +176,8 @@ final class HelpersTest {
     return new CartesianProductTest.Sets()
         .addAll(Arrays.stream(ItemCategory.values()))
         .add(
-          Optional.<ResponseItem> empty(),
-          Optional.of(Collections.<ResponseItem> emptyList()));
+          Optional.<ResponseItem>empty(),
+          Optional.of(Collections.<ResponseItem>emptyList()));
   }
 
   @TestFactory

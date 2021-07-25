@@ -2,6 +2,6 @@
                         "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-  <suppress files=".*[/\\]test[/\\]" checks="JavadocPackage"/>
+  <suppress files=".*[/\\]test[/\\]" checks="JavadocPackage|LineLength"/>
   <suppress files="info[\\/]tomfi[\\/]hebcal[\\/]shabbat[\\/]assertions" checks="MissingJavadocMethod"/>
 </suppressions>

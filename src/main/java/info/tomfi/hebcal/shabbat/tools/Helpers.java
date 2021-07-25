@@ -86,7 +86,8 @@ public final class Helpers {
    * @param category the category to match the item to.
    * @return an optional response item.
    */
-  public static Optional<ResponseItem> getFirstItemOf(final Response response, final ItemCategory category) {
+  public static Optional<ResponseItem> getFirstItemOf(
+      final Response response, final ItemCategory category) {
     var items = response.items();
     if (items.isEmpty() || items.get().isEmpty()) {
       throw new IllegalArgumentException("response has no items");
