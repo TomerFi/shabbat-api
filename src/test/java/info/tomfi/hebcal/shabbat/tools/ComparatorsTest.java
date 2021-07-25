@@ -55,6 +55,6 @@ final class ComparatorsTest {
   @Test
   void instantiating_the_utility_class_with_the_default_ctor_throws_an_illegal_access_exception() {
     assertThatExceptionOfType(IllegalAccessException.class)
-        .isThrownBy(() -> ItemExtractors.class.getDeclaredConstructor().newInstance());
+        .isThrownBy(() -> Helpers.class.getDeclaredConstructor().newInstance());
   }
 }

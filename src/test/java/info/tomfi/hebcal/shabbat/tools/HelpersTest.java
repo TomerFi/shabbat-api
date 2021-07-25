@@ -46,10 +46,10 @@ import org.junitpioneer.jupiter.CartesianProductTest;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;
 
-/** Extracting tools test cases. */
+/** Various tools and helper methods to aid working with responses test cases. */
 @Tag("unit-tests")
 @MockitoSettings(strictness = LENIENT)
-final class ItemExtractorsTest {
+final class HelpersTest {
   @Mock private ResponseItem holidayItem;
   @Mock private ResponseItem candlesHolidayItem;
   @Mock private ResponseItem havdalaHolidayItem;
@@ -93,29 +93,29 @@ final class ItemExtractorsTest {
         dynamicTest(
             "the nearest shabbat candles item for friday is friday and not holiday sunday",
             () ->
-                assertThat(ItemExtractors.extractByDate(allItems, fridayDate, CANDLES))
+                assertThat(Helpers.getFirstByDate(allItems, fridayDate, CANDLES))
                     .hasValue(candlesShabbatItem)),
         dynamicTest(
             "when no shabbat candles item found, returning optional and not failing",
             () ->
-                assertThat(ItemExtractors.extractByDate(holidayOnlyItems, fridayDate, CANDLES))
+                assertThat(Helpers.getFirstByDate(holidayOnlyItems, fridayDate, CANDLES))
                     .isEmpty()),
         dynamicTest(
             "the nearest shabbat havdalah item for saturday is saturday and not holiday monday",
             () ->
-                assertThat(ItemExtractors.extractByDate(allItems, saturdayDate, HAVDALAH))
+                assertThat(Helpers.getFirstByDate(allItems, saturdayDate, HAVDALAH))
                     .hasValue(havdalaShabbatItem)),
         dynamicTest(
             "when no shabbat havdalah item found, returning optional and not failing",
             () ->
-                assertThat(ItemExtractors.extractByDate(holidayOnlyItems, saturdayDate, HAVDALAH))
+                assertThat(Helpers.getFirstByDate(holidayOnlyItems, saturdayDate, HAVDALAH))
                     .isEmpty()));
   }
 
   @Test
-  void extracting_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items() {
+  void matching_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items() {
     // when invoking the getItemFromResponse for the CANDLES and HAVDALAH categories
-    var items = ItemExtractors.extractAndSort(allItems, byItemDate(), CANDLES, HAVDALAH);
+    var items = Helpers.matchAndSort(allItems, byItemDate(), CANDLES, HAVDALAH);
     // then the items returned doesn't include the holiday item, its not a candles nor havdala item
     // and the items in the list is sorted by the date of the item
     assertThat(items)
@@ -125,24 +125,22 @@ final class ItemExtractorsTest {
   }
 
   @Test
-  void extracting_with_no_categories_selected_throws_an_illegal_argument_exception() {
+  void matching_with_no_categories_selected_throws_an_illegal_argument_exception() {
     assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> ItemExtractors.extractAndSort(allItems, byItemDate()))
+        .isThrownBy(() -> Helpers.matchAndSort(allItems, byItemDate()))
         .withMessage("at least one item category is required");
   }
 
   @Test
-  void extracting_with_null_as_a_one_of_the_categories_selected_throws_a_null_pointer_exception() {
+  void matching_with_null_as_a_one_of_the_categories_selected_throws_a_null_pointer_exception() {
     assertThatNullPointerException()
-        .isThrownBy(
-            () ->
-                ItemExtractors.extractAndSort(allItems, byItemDate(), ItemCategory.CANDLES, null));
+        .isThrownBy(() -> Helpers.matchAndSort(allItems, byItemDate(), ItemCategory.CANDLES, null));
   }
 
   @Test
   void instantiating_the_utility_class_with_the_default_ctor_throws_an_illegal_access_exception() {
     assertThatExceptionOfType(IllegalAccessException.class)
-        .isThrownBy(() -> ItemExtractors.class.getDeclaredConstructor().newInstance());
+        .isThrownBy(() -> Helpers.class.getDeclaredConstructor().newInstance());
   }
 
   @TestFactory
@@ -152,16 +150,16 @@ final class ItemExtractorsTest {
     return Stream.of(
       dynamicTest(
         "return the candles item for the CANDLES category using the undelining method",
-        () -> assertThat(ItemExtractors.getFirstItemOf(response, CANDLES)).hasValue(candlesHolidayItem)),
+        () -> assertThat(Helpers.getFirstItemOf(response, CANDLES)).hasValue(candlesHolidayItem)),
       dynamicTest(
         "return the havdalah item for the HAVDALAH  using the undelining method",
-        () -> assertThat(ItemExtractors.getFirstItemOf(response, HAVDALAH)).hasValue(havdalaHolidayItem)),
+        () -> assertThat(Helpers.getFirstItemOf(response, HAVDALAH)).hasValue(havdalaHolidayItem)),
       dynamicTest(
         "return the candles item for the CANDLES category using the helper method",
-        () -> assertThat(ItemExtractors.getCandlesItem(response)).hasValue(candlesHolidayItem)),
+        () -> assertThat(Helpers.getCandlesItem(response)).hasValue(candlesHolidayItem)),
       dynamicTest(
         "return the havdalah item for the HAVDALAH category using the helper method",
-        () -> assertThat(ItemExtractors.getHavdalaItem(response)).hasValue(havdalaHolidayItem))
+        () -> assertThat(Helpers.getHavdalaItem(response)).hasValue(havdalaHolidayItem))
     );
   }
 
@@ -170,7 +168,7 @@ final class ItemExtractorsTest {
       final ItemCategory category, Optional<List<ResponseItem>> returnItems, @Mock final Response response) {
     given(response.items()).willReturn(returnItems);
     assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> ItemExtractors.getFirstItemOf(response, category))
+        .isThrownBy(() -> Helpers.getFirstItemOf(response, category))
         .withMessage("response has no items");
   }
 
@@ -183,36 +181,36 @@ final class ItemExtractorsTest {
   }
 
   @TestFactory
-  Stream<DynamicTest> verify_extraction_of_the_shabbat_start_and_end_times_from_the_response(
+  Stream<DynamicTest> verify_retrieval_of_the_shabbat_start_and_end_times_from_the_response(
       @Mock final Response response) {
     given(response.items()).willReturn(Optional.of(allItems));
     return Stream.of(
       dynamicTest(
         "verify the shabbat start time is created from the candles holiday item",
-        () -> assertThat(ItemExtractors.getShabbatStart(response))
+        () -> assertThat(Helpers.getShabbatStart(response))
             .isEqualTo(OffsetDateTime.parse("2019-10-13T17:53:00+03:00", ISO_OFFSET_DATE_TIME))),
       dynamicTest(
         "verify the shabbat end time is created from the havdalah holiday item",
-        () -> assertThat(ItemExtractors.getShabbatEnd(response))
+        () -> assertThat(Helpers.getShabbatEnd(response))
             .isEqualTo(OffsetDateTime.parse("2019-10-14T19:00:00+03:00", ISO_OFFSET_DATE_TIME)))
     );
   }
 
   @Test
-  void extracting_the_shabbat_start_time_with_no_candles_item_should_throw_an_exception(
+  void attempting_to_get_the_shabbat_start_time_with_no_candles_item_should_throw_an_exception(
       @Mock final Response response) {
     given(response.items()).willReturn(Optional.of(List.of(holidayItem, havdalaShabbatItem)));
     assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> ItemExtractors.getShabbatStart(response))
+        .isThrownBy(() -> Helpers.getShabbatStart(response))
         .withMessage("no candles item found");
   }
 
   @Test
-  void extracting_the_shabbat_end_time_with_no_havdalah_item_should_throw_an_exception(
+  void attempting_to_get_the_shabbat_end_time_with_no_havdalah_item_should_throw_an_exception(
       @Mock final Response response) {
     given(response.items()).willReturn(Optional.of(List.of(holidayItem, candlesShabbatItem)));
     assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> ItemExtractors.getShabbatEnd(response))
+        .isThrownBy(() -> Helpers.getShabbatEnd(response))
         .withMessage("no havdala item found");
   }
 }

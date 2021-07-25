@@ -30,23 +30,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-/** Tools used for extracting data from the responses. */
-public final class ItemExtractors {
-  private ItemExtractors() {
+/** Various tools and helper methods to aid working with responses. */
+public final class Helpers {
+  private Helpers() {
     //
   }
 
   /**
-   * Extract items by a given category from a given list and sort by a given comparator.
+   * Sort using the given comparator, all {@link ResponseItem} objects in the given response
+   * matching the given {@link ItemCategory}.
    *
    * @param items the list items to iterate over.
-   * @param sorter the response item comprator used for sorting.
-   * @param categories the item categories to be extracted.
-   * @return a list of the extracted response item.
+   * @param comparator the response item comprator used for sorting.
+   * @param categories the item categories to match list item to.
+   * @return a sorted list of the matched response item.
    */
-  public static List<ResponseItem> extractAndSort(
+  public static List<ResponseItem> matchAndSort(
       final List<ResponseItem> items,
-      final Comparator<? super ResponseItem> sorter,
+      final Comparator<? super ResponseItem> comparator,
       final ItemCategory... categories) {
     if (categories.length <= 0) {
       throw new IllegalArgumentException("at least one item category is required");
@@ -57,23 +58,24 @@ public final class ItemExtractors {
     var catList = Stream.of(categories).map(ItemCategory::toString).collect(toSet());
     return items.stream()
         .filter(it -> catList.contains(it.category()))
-        .sorted(sorter)
+        .sorted(comparator)
         .collect(toList());
   }
 
   /**
-   * Extract an item from a given list matching a given date and category.
+   * Get the first occurence of an item matching the given {@link ItemCategory} and
+   * {@link LocalDate}.
    *
    * @param items list of the items to iterate over.
-   * @param shabbatDate the date to match the items to.
-   * @param category the category to match the item to.
+   * @param localDate the local date to match the items to.
+   * @param category the category to match the items to.
    * @return an optional response item.
    */
-  public static Optional<ResponseItem> extractByDate(
-      final List<ResponseItem> items, final LocalDate shabbatDate, final ItemCategory category) {
+  public static Optional<ResponseItem> getFirstByDate(
+      final List<ResponseItem> items, final LocalDate localDate, final ItemCategory category) {
     return items.stream()
         .filter(item -> item.category().equals(category.toString()))
-        .filter(item -> parse(item.date(), ISO_OFFSET_DATE_TIME).toLocalDate().equals(shabbatDate))
+        .filter(item -> parse(item.date(), ISO_OFFSET_DATE_TIME).toLocalDate().equals(localDate))
         .findFirst();
   }
 
