@@ -35,6 +35,19 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
+      - name: Set up Node 16
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: 16
+
+      - name: Install node dependencies
+        run: >
+          npm i -g
+          semantic-release
+          @semantic-release/exec
+          @conveyal/maven-semantic-release
+          conventional-changelog-conventionalcommits
+
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -50,33 +63,36 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Release and deploy with semantic-release
-        id: semver
-        uses: cycjimmy/semantic-release-action@v2.5.4
         env:
-          GITHUB_TOKEN: ${{ secrets.EVENT_DISPATCH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        with:
-          extra_plugins: |
-            @semantic-release/exec
-            @conveyal/maven-semantic-release
-            conventional-changelog-conventionalcommits
+        run: semantic-release
+
+      - name: Check if release published
+        id: is_published
+        run: echo "::set-output name=text::$(test -f .nextRelease && echo true || echo false)"
+
+      - name: Get new semver
+        id: semver
+        if: steps.is_published.outputs.text == 'true'
+        run: echo "::set-output name=text::$(cat .nextRelease | tr -d ' \t\n\r')"
 
       - name: Dispatch release event for jbang catalog
-        if: steps.semver.outputs.new_release_published == 'true'
+        if: steps.is_published.outputs.text == 'true'
         uses: peter-evans/repository-dispatch@v1.1.3
         with:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
           repository: TomerFi/jbang-catalog
-          client-payload: '{"release": "${{ steps.semver.outputs.new_release_version }}"}'
+          client-payload: '{"release": "${{ steps.semver.outputs.text }}"}'
 
       - name: Tweet new release
-        if: steps.semver.outputs.new_release_published == 'true'
+        if: steps.is_published.outputs.text == 'true'
         uses: lazy-actions/tweet-action@1.0.1
         env:
-          RELEASE_TAG: ${{ steps.semver.outputs.new_release_version }}
+          RELEASE_TAG: ${{ steps.semver.outputs.text }}
         with:
           oauth_consumer_key: ${{ secrets.TWITTER_API_KEY }}
           oauth_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }}

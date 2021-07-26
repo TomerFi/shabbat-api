@@ -4,16 +4,16 @@ tagFormat: ${version}
 preset: conventionalcommits
 parserOpts:
   noteKeywords:
-    - BREAK
-    - BREAKS
-    - BREAKING
-    - BREAKING CHANGE
     - BREAKING CHANGES
+    - BREAKING CHANGE
+    - BREAKING
+    - BREAKS
+    - BREAK
 plugins:
-  - "@conveyal/maven-semantic-release"
-  - "@semantic-release/github"
   - - "@semantic-release/exec"
-    - verifyReleaseCmd: |
+    - prepare: |
+        echo
+      success: |
         echo ${nextRelease.version} > .nextRelease
   - - "@semantic-release/commit-analyzer"
     - releaseRules:
@@ -47,32 +47,34 @@ plugins:
     - presetConfig:
         types:
           - type: feat
-            section: Features
+            section: ✨ Features
           - type: fix
-            section: Bug Fixes
+            section: 🐛 Bug Fixes
           - type: perf
-            section: Performance Improvements
+            section: 🚀 Performance Improvements
           - type: revert
-            section: Reverts
+            section: 🙄 Reverts
           - type: refactor
-            section: Code Refactoring
+            section: ♻️ Code Refactoring
           - type: docs
-            section: Documentation
+            section: 📚 Documentation
           - type: build
             scope: deps
-            section: Dependency Bumps
+            section: 🛠️ Dependency Bumps
           - type: style
-            section: Styles
+            section: 💎 Style
             hidden: true
           - type: chore
-            section: Miscellaneous Chores
+            section: 🔧Miscellaneous Chores
             hidden: true
           - type: test
-            section: Tests
+            section: ✅ Tests
             hidden: true
           - type: build
-            section: Build System
+            section: 📦 Build System
             hidden: true
           - type: ci
-            section: Continuous Integration
+            section: 👷 Continuous Integration
             hidden: true
+  - "@semantic-release/github"
+  - "@conveyal/maven-semantic-release"
