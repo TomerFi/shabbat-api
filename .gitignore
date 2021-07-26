@@ -36,3 +36,6 @@ target
 
 # Node
 node_modules
+
+# project stuff
+.nextRelease

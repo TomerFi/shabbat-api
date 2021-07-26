@@ -10,8 +10,11 @@ parserOpts:
     - BREAKING CHANGE
     - BREAKING CHANGES
 plugins:
-  - "@semantic-release/github"
   - "@conveyal/maven-semantic-release"
+  - "@semantic-release/github"
+  - - "@semantic-release/exec"
+    - verifyReleaseCmd: |
+        echo ${nextRelease.version} > .nextRelease
   - - "@semantic-release/commit-analyzer"
     - releaseRules:
         - breaking: true

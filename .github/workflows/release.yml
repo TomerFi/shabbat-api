@@ -53,12 +53,13 @@ jobs:
         id: semver
         uses: cycjimmy/semantic-release-action@v2.5.4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.EVENT_DISPATCH_PAT }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         with:
           extra_plugins: |
+            @semantic-release/exec
             @conveyal/maven-semantic-release
             conventional-changelog-conventionalcommits
 

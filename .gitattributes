@@ -63,14 +63,14 @@ makefile text eol=lf
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
 # Docker
-*.dockerignore text eol=crlf
-*-dockerignore text eol=crlf
-Dockerfile text eol=crlf
-Dockerfile* text eol=crlf
+*.dockerignore text eol=lf
+*-dockerignore text eol=lf
+Dockerfile text eol=lf
+Dockerfile* text eol=lf
 # Git
-*.gitattributes text eol=crlf
-.gitignore text eol=crlf
-.gitmodules text eol=clrf
+*.gitattributes text eol=lf
+.gitignore text eol=lf
+.gitmodules text eol=rf
 # Web files
 *.coffee text eol=lf
 *.css text eol=lf diff=css
