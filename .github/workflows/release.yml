@@ -3,13 +3,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: Release semantic version
-        required: true
-      next_iteration:
-        description: Next release snapshot iteration
-        required: true
 
 jobs:
   release:
@@ -54,6 +47,20 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Create semantic version value
+        id: semver
+        uses: paulhatch/semantic-version@v4.0.2
+        with:
+          branch: master
+          tag_prefix: ""
+          format: "${major}.${minor}.${patch}"
+          short_tags: false
+
+      - name: Create next release iteration
+        id: next_iteration
+        run: |
+          echo "::set-output name=text::$(( ${{ steps.semver.outputs.patch }} + 1 ))-SNAPSHOT"
+
       - name: Deploy to OSSRH
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
@@ -62,17 +69,17 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: >
           mvn release:prepare -B -ff
-          -Dtag=${{ github.event.inputs.version }}
-          -DreleaseVersion=${{ github.event.inputs.version }}
-          -DdevelopmentVersion=${{ github.event.inputs.next_iteration }}
+          -Dtag=${{ steps.semver.outputs.version }}
+          -DreleaseVersion=${{ steps.semver.outputs.version }}
+          -DdevelopmentVersion=${{ steps.next_iteration.outputs.text }}
           && mvn release:perform -B -ff
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: ${{ github.event.inputs.version }}
-          title: ${{ github.event.inputs.version }}
+          automatic_release_tag: ${{ steps.semver.outputs.version }}
+          title: ${{ steps.semver.outputs.version }}
           prerelease: false
 
       - name: Dispatch release event for jbang catalog
@@ -81,12 +88,12 @@ jobs:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
           repository: TomerFi/jbang-catalog
-          client-payload: '{"release": "${{ github.event.inputs.version }}"}'
+          client-payload: '{"release": "${{ steps.semver.outputs.version }}"}'
 
       - name: Tweet new release
         uses: lazy-actions/tweet-action@1.0.1
         env:
-          RELEASE_TAG: ${{ github.event.inputs.version }}
+          RELEASE_TAG: ${{ steps.semver.outputs.version }}
         with:
           oauth_consumer_key: ${{ secrets.TWITTER_API_KEY }}
           oauth_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }}
