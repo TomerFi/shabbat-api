@@ -47,6 +47,7 @@
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.3.0</maven-javadoc-plugin.version>
+    <maven-release-plugin.version>3.0.0-M4</maven-release-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
@@ -388,6 +389,15 @@
           <configuration>
             <doclint>all,-missing</doclint>
             <quiet>true</quiet>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+          <configuration>
+            <arguments>-Pprepare-deployment,sign-deployment,deploy-ossrh</arguments>
+            <scmCommentPrefix>build(release): </scmCommentPrefix>
+            <signTag>true</signTag>
           </configuration>
         </plugin>
         <plugin>
