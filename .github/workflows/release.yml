@@ -3,12 +3,14 @@ name: Release
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [new-hebcal-release]
 
 jobs:
   release:
     runs-on: ubuntu-latest
     environment: deployment
-    name: Build release and push to OSSRH
+    name: Deploy and Release
     steps:
       - name: Source checkout
         uses: actions/checkout@v2.3.4
@@ -33,6 +35,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
+      - name: Set up Node 16
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: 16
+
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -40,26 +47,23 @@ jobs:
           git config --global commit.gpgSign true
           git config --global tag.gpgSign true
           git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
-          git pull
 
       - name: Initiate an ssh agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create semantic version value
-        id: semver
-        uses: paulhatch/semantic-version@v4.0.2
-        with:
-          branch: master
-          tag_prefix: ""
-          format: "${major}.${minor}.${patch}"
-          short_tags: false
+      - name: Create semantic CHANGELOG.md
+        run: npx standard-version
 
-      - name: Create next release iteration
-        id: next_iteration
+      - name: Set version info
+        id: version
         run: |
-          echo "::set-output name=text::$(( ${{ steps.semver.outputs.patch }} + 1 ))-SNAPSHOT"
+          new_version=$(cat CHANGELOG.md | tr -d '\n' | cut -f1 -d'(' | sed 's/## //')
+          major_minor=$(echo $new_version | cut -f1,2 -d'.')
+          next_patch=$(echo $new_version | cut -f3 -d'.' | { read patch; echo $((patch + 1)); })
+          echo "::set-output name=new_version::$new_version"
+          echo "::set-output name=next_iteration::$major_minor.$next_patch-SNAPSHOT"
 
       - name: Deploy to OSSRH
         env:
@@ -69,18 +73,10 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: >
           mvn release:prepare -B -ff
-          -Dtag=${{ steps.semver.outputs.version }}
-          -DreleaseVersion=${{ steps.semver.outputs.version }}
-          -DdevelopmentVersion=${{ steps.next_iteration.outputs.text }}
+          -Dtag=${{ steps.version.outputs.new_version }}
+          -DreleaseVersion=${{ steps.version.outputs.new_version }}
+          -DdevelopmentVersion=${{ steps.version.outputs.next_iteration}}
           && mvn release:perform -B -ff
-
-      - name: Create Release
-        uses: marvinpinto/action-automatic-releases@v1.2.1
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: ${{ steps.semver.outputs.version }}
-          title: ${{ steps.semver.outputs.version }}
-          prerelease: false
 
       - name: Dispatch release event for jbang catalog
         uses: peter-evans/repository-dispatch@v1.1.3
@@ -88,19 +84,24 @@ jobs:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
           repository: TomerFi/jbang-catalog
-          client-payload: '{"release": "${{ steps.semver.outputs.version }}"}'
+          client-payload: '{"release": "${{ steps.version.outputs.new_version }}"}'
+
+      - name: Release to GitHub
+        id: gh_release
+        uses: softprops/action-gh-release@v0.1.7
+        with:
+          body_path: CHANGELOG.md
+          tag_name: ${{ steps.version.outputs.new_version }}
 
       - name: Tweet new release
         uses: lazy-actions/tweet-action@1.0.1
-        env:
-          RELEASE_TAG: ${{ steps.semver.outputs.version }}
         with:
           oauth_consumer_key: ${{ secrets.TWITTER_API_KEY }}
           oauth_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }}
           oauth_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           message: |
-            🚀🎉 Hebcal-api ${{ env.RELEASE_TAG }} has been released! 🎉🚀
-            ${{ github.event.repository.html_url }}/releases/tag/${{ env.RELEASE_TAG }}
+            🚀🎉 Hebcal-api ${{ steps.version.outputs.new_version }} has been released! 🎉🚀
+            ${{ steps.gh_release.outputs.url }}
 
             #hebcal-java-api

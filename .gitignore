@@ -38,4 +38,4 @@ target
 node_modules
 
 # project stuff
-.nextRelease
+CHANGELOG.md

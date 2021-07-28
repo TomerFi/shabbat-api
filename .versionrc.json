@@ -1,0 +1,22 @@
+{
+  "header": "",
+  "skip": {
+    "commit": true,
+    "tag": true
+  },
+  "types": [
+    {"type":"feat","section":"✨ Features"},
+    {"type":"fix","section},":"🐞 Bug Fixes"},
+    {"type":"perf","section":"🚀 Performance Improvements"},
+    {"type": "revert", "section": "🔃 Reverts"},
+    {"type": "refactor", "section": "📝 Refactors"},
+    {"type": "docs", "section": "📚 Documentation", "hidden": true},
+    {"type": "chore", "section": "🛠️ Chores", "hidden": true},
+    {"type": "ci", "section": "🚇 Continuous Integration", "hidden": true},
+    {"type":"build", "section": "👷 Development", "hidden": true},
+    {"type": "test", "section": "✅ Tests", "hidden": true}
+  ],
+  "scripts": {
+    "prechangelog": "rm -f CHANGELOG.md"
+  }
+}
