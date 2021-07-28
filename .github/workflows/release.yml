@@ -48,10 +48,10 @@ jobs:
           git config --global tag.gpgSign true
           git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
 
-      #- name: Initiate an ssh agent
-      #  uses: webfactory/ssh-agent@v0.5.3
-      #  with:
-      #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Initiate an ssh agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Create semantic CHANGELOG.md
         run: npx standard-version
@@ -65,26 +65,26 @@ jobs:
           echo "::set-output name=new_version::$new_version"
           echo "::set-output name=next_iteration::$major_minor.$next_patch-SNAPSHOT"
 
-      #- name: Deploy to OSSRH
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
-      #    OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      #    OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-      #    GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      #  run: >
-      #    mvn release:prepare -B -ff
-      #    -Dtag=${{ steps.version.outputs.new_version }}
-      #    -DreleaseVersion=${{ steps.version.outputs.new_version }}
-      #    -DdevelopmentVersion=${{ steps.version.outputs.next_iteration}}
-      #    && mvn release:perform -B -ff
+      - name: Deploy to OSSRH
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: >
+          mvn release:prepare -B -ff
+          -Dtag=${{ steps.version.outputs.new_version }}
+          -DreleaseVersion=${{ steps.version.outputs.new_version }}
+          -DdevelopmentVersion=${{ steps.version.outputs.next_iteration}}
+          && mvn release:perform -B -ff
 
-      #- name: Dispatch release event for jbang catalog
-      #  uses: peter-evans/repository-dispatch@v1.1.3
-      #  with:
-      #    token: ${{ secrets.EVENT_DISPATCH_PAT }}
-      #    event-type: hebcal-api-released
-      #    repository: TomerFi/jbang-catalog
-      #    client-payload: '{"release": "${{ steps.version.outputs.new_version }}"}'
+      - name: Dispatch release event for jbang catalog
+        uses: peter-evans/repository-dispatch@v1.1.3
+        with:
+          token: ${{ secrets.EVENT_DISPATCH_PAT }}
+          event-type: hebcal-api-released
+          repository: TomerFi/jbang-catalog
+          client-payload: '{"release": "${{ steps.version.outputs.new_version }}"}'
 
       - name: Release to GitHub
         id: gh_release
