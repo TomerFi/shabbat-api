@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD013 -->
-# A Java API encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1]
+# A Java SDK encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1]
 <!-- markdownlint-enable MD013 -->
 
 The library offers a Java Service encapsulating [HebCal][3]'s REST API.
