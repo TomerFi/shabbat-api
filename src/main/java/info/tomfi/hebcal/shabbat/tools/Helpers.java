@@ -37,18 +37,22 @@ public final class Helpers {
   }
 
   /**
-   * Sort using the given comparator, all {@link ResponseItem} objects in the given response
+   * Sort using the given comparator, all {@link ResponseItem} objects in the given {@link Response}
    * matching the given {@link ItemCategory}.
    *
-   * @param items the list items to iterate over.
+   * @param response the response to get the items from.
    * @param comparator the response item comprator used for sorting.
    * @param categories the item categories to match list item to.
    * @return a sorted list of the matched response item.
    */
   public static List<ResponseItem> matchAndSort(
-      final List<ResponseItem> items,
+      final Response response,
       final Comparator<? super ResponseItem> comparator,
       final ItemCategory... categories) {
+    var itemsOpt = response.items();
+    if (itemsOpt.isEmpty() || itemsOpt.get().isEmpty()) {
+      throw new IllegalArgumentException("response has no items");
+    }
     if (categories.length <= 0) {
       throw new IllegalArgumentException("at least one item category is required");
     }
@@ -56,7 +60,7 @@ public final class Helpers {
       requireNonNull(cat, () -> "a category can not be null");
     }
     var catList = Stream.of(categories).map(ItemCategory::toString).collect(toSet());
-    return items.stream()
+    return itemsOpt.get().stream()
         .filter(it -> catList.contains(it.category()))
         .sorted(comparator)
         .collect(toList());

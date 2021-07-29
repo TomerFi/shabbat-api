@@ -24,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
+import static org.mockito.Mockito.mock;
 import static org.mockito.quality.Strictness.LENIENT;
 
 import info.tomfi.hebcal.shabbat.response.ItemCategory;
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
@@ -113,9 +115,11 @@ final class HelpersTest {
   }
 
   @Test
-  void matching_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items() {
+  void matching_and_sorting_a_full_items_list_returns_only_sorted_candles_and_havdalah_items(
+      @Mock final Response response) {
+    given(response.items()).willReturn(Optional.of(allItems));
     // when invoking the getItemFromResponse for the CANDLES and HAVDALAH categories
-    var items = Helpers.matchAndSort(allItems, byItemDate(), CANDLES, HAVDALAH);
+    var items = Helpers.matchAndSort(response, byItemDate(), CANDLES, HAVDALAH);
     // then the items returned doesn't include the holiday item, its not a candles nor havdala item
     // and the items in the list is sorted by the date of the item
     assertThat(items)
@@ -125,17 +129,48 @@ final class HelpersTest {
   }
 
   @Test
-  void matching_with_no_categories_selected_throws_an_illegal_argument_exception() {
+  void matching_with_no_categories_selected_throws_an_illegal_argument_exception(
+      @Mock final Response response) {
+    given(response.items()).willReturn(Optional.of(allItems));
     assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> Helpers.matchAndSort(allItems, byItemDate()))
+        .isThrownBy(() -> Helpers.matchAndSort(response, byItemDate()))
         .withMessage("at least one item category is required");
   }
 
   @Test
-  void matching_with_null_as_a_one_of_the_categories_selected_throws_a_null_pointer_exception() {
+  void matching_with_null_as_a_one_of_the_categories_selected_throws_a_null_pointer_exception(
+      @Mock final Response response) {
+    given(response.items()).willReturn(Optional.of(allItems));
     assertThatNullPointerException()
-        .isThrownBy(() -> Helpers.matchAndSort(allItems, byItemDate(), ItemCategory.CANDLES, null));
+        .isThrownBy(() -> Helpers.matchAndSort(response, byItemDate(), ItemCategory.CANDLES, null));
   }
+
+  @TestFactory
+  Stream<DynamicTest> attempting_to_match_and_sort_with_an_empty_items_list_should_throw_an_exception() {
+    final Consumer<Response> assertResponse = r -> assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> Helpers.matchAndSort(r, byItemDate()))
+        .withMessage("response has no items");
+
+    return Stream.of(
+      dynamicTest(
+        "attempt to match and sort with and empty optional items list should throw and exeption",
+        () -> {
+          var response = mock(Response.class);
+          given(response.items()).willReturn(Optional.<List<ResponseItem>>empty());
+          assertResponse.accept(response);
+        }
+      ),
+      dynamicTest(
+        "attempt to match and sort with and optional empty items list should throw and exeption",
+        () -> {
+          var response = mock(Response.class);
+          given(response.items()).willReturn(Optional.of(Collections.<ResponseItem>emptyList()));
+          assertResponse.accept(response);
+        }
+      )
+    );
+  }
+
 
   @Test
   void instantiating_the_utility_class_with_the_default_ctor_throws_an_illegal_access_exception() {
