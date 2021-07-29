@@ -23,8 +23,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.mock;
 import static org.mockito.BDDMockito.when;
-import static org.mockito.Mockito.mock;
 import static org.mockito.quality.Strictness.LENIENT;
 
 import info.tomfi.hebcal.shabbat.response.ItemCategory;
@@ -91,27 +91,55 @@ final class HelpersTest {
 
   @TestFactory
   Collection<DynamicTest> retrieving_shabbat_candles_and_havdalah_items_from_predefined_lists() {
+    final Consumer<Response> assertNoItemsException = r -> assertThatExceptionOfType(IllegalArgumentException.class)
+        .isThrownBy(() -> Helpers.getFirstByDate(r, null, null))
+        .withMessage("response has no items");
     return List.of(
         dynamicTest(
-            "the nearest shabbat candles item for friday is friday and not holiday sunday",
-            () ->
-                assertThat(Helpers.getFirstByDate(allItems, fridayDate, CANDLES))
-                    .hasValue(candlesShabbatItem)),
+          "the nearest shabbat candles item for friday is friday and not holiday sunday",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.of(allItems));
+            assertThat(Helpers.getFirstByDate(response, fridayDate, CANDLES)).hasValue(candlesShabbatItem);
+          }),
         dynamicTest(
-            "when no shabbat candles item found, returning optional and not failing",
-            () ->
-                assertThat(Helpers.getFirstByDate(holidayOnlyItems, fridayDate, CANDLES))
-                    .isEmpty()),
+          "when no shabbat candles item found, returning optional and not failing",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.of(holidayOnlyItems));
+            assertThat(Helpers.getFirstByDate(response, fridayDate, CANDLES)).isEmpty();
+          }),
         dynamicTest(
-            "the nearest shabbat havdalah item for saturday is saturday and not holiday monday",
-            () ->
-                assertThat(Helpers.getFirstByDate(allItems, saturdayDate, HAVDALAH))
-                    .hasValue(havdalaShabbatItem)),
+          "the nearest shabbat havdalah item for saturday is saturday and not holiday monday",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.of(allItems));
+            assertThat(Helpers.getFirstByDate(response, saturdayDate, HAVDALAH)).hasValue(havdalaShabbatItem);
+          }),
         dynamicTest(
-            "when no shabbat havdalah item found, returning optional and not failing",
-            () ->
-                assertThat(Helpers.getFirstByDate(holidayOnlyItems, saturdayDate, HAVDALAH))
-                    .isEmpty()));
+          "when no shabbat havdalah item found, returning optional and not failing",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.of(holidayOnlyItems));
+            assertThat(Helpers.getFirstByDate(response, saturdayDate, HAVDALAH)).isEmpty();
+          }),
+        dynamicTest(
+          "attempt to get the first item by date with and empty optional items list should throw and exeption",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.<List<ResponseItem>>empty());
+            assertNoItemsException.accept(response);
+          }
+        ),
+        dynamicTest(
+          "attempt to get the first item by date with and optional empty items list should throw and exeption",
+          () -> {
+            var response = mock(Response.class);
+            given(response.items()).willReturn(Optional.of(Collections.<ResponseItem>emptyList()));
+            assertNoItemsException.accept(response);
+          }
+        )
+      );
   }
 
   @Test
@@ -170,7 +198,6 @@ final class HelpersTest {
       )
     );
   }
-
 
   @Test
   void instantiating_the_utility_class_with_the_default_ctor_throws_an_illegal_access_exception() {
