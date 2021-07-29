@@ -56,9 +56,6 @@ jobs:
       - name: Create semantic CHANGELOG.md
         run: npx standard-version
 
-      - name: Temp fix for changelog after botched release
-        run: sed -i 's/## 2.0.0/## 2.1.0/g' CHANGELOG.md
-
       - name: Set version info
         id: version
         run: |
