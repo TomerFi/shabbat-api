@@ -41,7 +41,11 @@ jobs:
           node-version: 16
 
       - name: Install global node modules
-        run: npm i -g conventional-changelog-cli
+        run: >
+          npm i -g
+          conventional-changelog-cli
+          conventional-recommended-bump
+          git-semver-tags
 
       - name: Configure git
         run: |
