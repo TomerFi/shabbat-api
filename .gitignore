@@ -40,4 +40,5 @@ node_modules
 # project stuff
 CHANGELOG.md
 release-context.json
-*.http
+rest_dispatch_release.http
+delete_release.js
