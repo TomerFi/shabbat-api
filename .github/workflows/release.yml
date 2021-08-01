@@ -44,6 +44,7 @@ jobs:
         run: >
           npm i -g
           conventional-changelog-cli
+          conventional-changelog-conventionalcommits
           conventional-recommended-bump
           git-semver-tags
 
@@ -110,4 +111,4 @@ jobs:
             🚀🎉 Hebcal-api ${{ steps.version.outputs.new_version }} has been released! 🎉🚀
             ${{ steps.gh_release.outputs.url }}
 
-            #hebcal-java-api
+            #hebcal_java_api

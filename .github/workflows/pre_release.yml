@@ -76,13 +76,7 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-ossrh -B -ff
 
-      - name: Remove early-access tags
-        continue-on-error: true
-        run: |
-          git tag -d early-access
-          git push --delete origin early-access
-
-      - name: Remove existing early-access release
+      - name: Remove early-access release
         continue-on-error: true
         uses: actions/github-script@v4.0.2
         with:
@@ -99,7 +93,13 @@ jobs:
               release_id: existing.id
             })
 
-      - name: Create new early-access release
+      - name: Remove early-access tags
+        continue-on-error: true
+        run: |
+          git tag -d early-access
+          git push --delete origin early-access
+
+      - name: Create new early-access release and tag
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG.md
