@@ -31,7 +31,6 @@ target
 *.tap
 
 # Vscode configuration
-.vscode
 *.code-workspace
 
 # Node
