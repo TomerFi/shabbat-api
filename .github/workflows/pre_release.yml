@@ -39,6 +39,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install global node modules
+        run: npm i -g conventional-changelog-cli
+
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -53,8 +56,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create semantic CHANGELOG.md
-        run: npx standard-version --preset eslint
+      - name: Create CHANGELOG.md for sourcing the release notes
+        run: bash scripts/create_changelog.sh --tag early-access --preset eslint
 
       - name: Get current project version
         id: currentVersion
@@ -71,12 +74,29 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-ossrh -B -ff
 
-      - name: Release early-access to GitHub
+      - name: Remove early-access tags
+        continue-on-error: true
+        run: |
+          git tag -d early-access
+          git push --delete origin early-access
+
+      - name: Remove existing early-access release
+        uses: actions/github-script@v4.0.2
+        continue-on-error: true
+        with:
+          script: |
+            github.repos.deleteRelease({
+              owner: 'TomerFi',
+              repo: 'hebcal-api',
+              release_id: 'early-access'
+            })
+
+      - name: Create new early-access release
         uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG.md
-          name: ${{ steps.currentVersion.outputs.result }}
           tag_name: early-access
+          name: ${{ steps.currentVersion.outputs.result }}
           prerelease: true
 
       - name: Push to CodeCov

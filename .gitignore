@@ -39,3 +39,4 @@ node_modules
 
 # project stuff
 CHANGELOG.md
+release-context.json

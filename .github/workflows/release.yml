@@ -40,6 +40,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install global node modules
+        run: npm i -g conventional-changelog-cli
+
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -53,17 +56,16 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create semantic CHANGELOG.md
-        run: npx standard-version
-
       - name: Set version info
         id: version
         run: |
-          new_version=$(cat CHANGELOG.md | tr -d '\n' | cut -f1 -d'(' | sed 's/##//' | xargs)
-          major_minor=$(echo $new_version | cut -f1,2 -d'.')
-          next_patch=$(echo $new_version | cut -f3 -d'.' | { read patch; echo $((patch + 1)); })
+          new_version=$(bash scripts/get_next_bump.sh)
+          next_iteration=$(bash scripts/get_next_dev_iteration.sh --tag $new_version)
           echo "::set-output name=new_version::$new_version"
-          echo "::set-output name=next_iteration::$major_minor.$next_patch-SNAPSHOT"
+          echo "::set-output name=next_iteration::$next_iteration"
+
+      - name: Create CHANGELOG.md for sourcing the release notes
+        run: bash scripts/create_changelog.sh --tag ${{ steps.version.outputs.new_version }}
 
       - name: Deploy to OSSRH
         env:
