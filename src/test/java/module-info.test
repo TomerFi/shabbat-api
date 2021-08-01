@@ -9,6 +9,16 @@
   info.tomfi.hebcal.shabbat=org.junit.jupiter.params
 --add-reads
   info.tomfi.hebcal.shabbat=org.junitpioneer
+--add-reads
+  info.tomfi.hebcal.shabbat=nl.jqno.equalsverifier
+--add-reads
+  info.tomfi.hebcal.shabbat=com.google.common
+--add-reads
+  info.tomfi.hebcal.shabbat=javafaker
+--add-reads
+  info.tomfi.hebcal.shabbat=wiremock.jre8
+--add-reads
+  info.tomfi.hebcal.shabbat=awaitility
 
 --add-opens
   info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat=org.junit.platform.commons
