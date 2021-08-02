@@ -36,14 +36,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Set up Node 16
-        uses: actions/setup-node@v2.3.0
-        with:
-          node-version: 16
-
-      - name: Install global node modules
-        run: npm i -g conventional-changelog-cli
-
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -57,9 +49,6 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Create CHANGELOG.md for sourcing the release notes
-        run: bash scripts/create_changelog.sh --tag early-access --preset eslint
 
       - name: Get current project version
         id: currentVersion
@@ -75,15 +64,6 @@ jobs:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-ossrh -B -ff
-
-      - name: Create new early-access release and tag
-        uses: ncipollo/release-action@v1.8.6
-        with:
-          allowUpdates: true
-          bodyFile: CHANGELOG.md
-          prerelease: true
-          tag: early-access
-          token: ${{ secrets.GH_RELEASE_PAT }}
 
       - name: Push to CodeCov
         uses: codecov/codecov-action@v2.0.2
