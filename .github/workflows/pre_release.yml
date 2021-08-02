@@ -76,35 +76,15 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-ossrh -B -ff
 
-      - name: Remove early-access release
-        continue-on-error: true
-        uses: actions/github-script@v4.0.2
-        with:
-          script: |
-            let existing = await github.repos.getReleaseByTag({
-              owner: 'TomerFi',
-              repo: 'hebcal-api',
-              tag: 'early-access'
-            })
-
-            await github.repos.deleteRelease({
-              owner: 'TomerFi',
-              repo: 'hebcal-api',
-              release_id: existing.id
-            })
-
-      - name: Remove early-access tags
-        continue-on-error: true
-        run: |
-          git tag -d early-access
-          git push --delete origin early-access
-
       - name: Create new early-access release and tag
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
         with:
           body_path: CHANGELOG.md
           tag_name: early-access
           name: ${{ steps.currentVersion.outputs.result }}
+          draft: false
           prerelease: true
 
       - name: Push to CodeCov
