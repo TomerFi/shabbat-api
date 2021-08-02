@@ -95,10 +95,11 @@ jobs:
 
       - name: Release to GitHub
         id: gh_release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1.8.6
         with:
-          body_path: CHANGELOG.md
-          tag_name: ${{ steps.version.outputs.new_version }}
+          bodyFile: CHANGELOG.md
+          tag: ${{ steps.version.outputs.new_version }}
+          token: ${{ secrets.GH_RELEASE_PAT }}
 
       - name: Tweet new release
         uses: lazy-actions/tweet-action@1.0.1
@@ -109,6 +110,6 @@ jobs:
           oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           message: |
             🚀🎉 Hebcal-api ${{ steps.version.outputs.new_version }} has been released! 🎉🚀
-            ${{ steps.gh_release.outputs.url }}
+            ${{ steps.gh_release.outputs.html_url }}
 
             #hebcal_java_api

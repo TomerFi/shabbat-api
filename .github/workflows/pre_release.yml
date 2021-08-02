@@ -77,15 +77,13 @@ jobs:
         run: mvn deploy jacoco:report -Pprepare-deployment,sign-deployment,deploy-ossrh -B -ff
 
       - name: Create new early-access release and tag
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
+        uses: ncipollo/release-action@v1.8.6
         with:
-          body_path: CHANGELOG.md
-          tag_name: early-access
-          name: ${{ steps.currentVersion.outputs.result }}
-          draft: false
+          allowUpdates: true
+          bodyFile: CHANGELOG.md
           prerelease: true
+          tag: early-access
+          token: ${{ secrets.GH_RELEASE_PAT }}
 
       - name: Push to CodeCov
         uses: codecov/codecov-action@v2.0.2
