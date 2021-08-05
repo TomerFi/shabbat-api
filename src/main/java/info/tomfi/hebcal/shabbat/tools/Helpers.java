@@ -78,10 +78,27 @@ public final class Helpers {
   public static Optional<ResponseItem> getFirstByDate(
       final Response response, final LocalDate localDate, final ItemCategory category) {
     var itemsOpt = response.items();
-    if (itemsOpt.isEmpty() || itemsOpt.get().isEmpty()) {
+    if (itemsOpt.isEmpty()) {
       throw new IllegalArgumentException("response has no items");
     }
-    return itemsOpt.get().stream()
+    return getFirstByDate(itemsOpt.get(), localDate, category);
+  }
+
+  /**
+   * Get the first occurrence of an item matching the given {@link ItemCategory} and
+   * {@link LocalDate}.
+   *
+   * @param items the response items to get the items from.
+   * @param localDate the local date to match the items to.
+   * @param category the category to match the items to.
+   * @return an optional response item.
+   */
+  public static Optional<ResponseItem> getFirstByDate(
+      final List<ResponseItem> items, final LocalDate localDate, final ItemCategory category) {
+    if (items.isEmpty()) {
+      throw new IllegalArgumentException("response has no items");
+    }
+    return items.stream()
         .filter(item -> item.category().equals(category.toString()))
         .filter(item -> parse(item.date(), ISO_OFFSET_DATE_TIME).toLocalDate().equals(localDate))
         .findFirst();
