@@ -95,7 +95,7 @@ jobs:
           files: reports/junit-platform/TEST-junit-jupiter.xml
 
       - name: Push to codecov
-        uses: codecov/codecov-action@v2.0.2
+        uses: codecov/codecov-action@v2.0.3
         with:
           file: reports/site/jacoco/jacoco.xml
           fail_ci_if_error: true
