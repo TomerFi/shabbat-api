@@ -59,7 +59,7 @@ jobs:
         id: version
         run: |
           new_version=$(bash scripts/get_next_bump.sh)
-          next_iteration=$(bash scripts/get_next_dev_iteration.sh --tag $new_version)
+          next_iteration=$(bash scripts/get_next_dev_iteration.sh --tag $new_version --label -SNAPSHOT)
           echo "::set-output name=new_version::$new_version"
           echo "::set-output name=next_iteration::$next_iteration"
 
