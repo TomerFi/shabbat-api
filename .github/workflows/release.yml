@@ -53,7 +53,7 @@ jobs:
       - name: Initiate an ssh agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Set version info
         id: version
