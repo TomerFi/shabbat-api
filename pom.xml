@@ -15,6 +15,7 @@
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
+    <apiguardian-api.version>1.1.2</apiguardian-api.version>
     <asm.version>9.2</asm.version>
     <assertj.version>3.21.0</assertj.version>
     <auto-service.version>1.0</auto-service.version>
@@ -196,6 +197,11 @@
         <version>${slf4j.version}</version>
       </dependency>
       <!-- DEPENDENCY CONVERGENCE RESOLUTION -->
+      <dependency>
+        <groupId>org.apiguardian</groupId>
+        <artifactId>apiguardian-api</artifactId>
+        <version>${apiguardian-api.version}</version>
+      </dependency>
       <dependency>
         <groupId>net.minidev</groupId>
         <artifactId>json-smart</artifactId>
