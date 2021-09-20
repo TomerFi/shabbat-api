@@ -3,21 +3,25 @@ name: Release
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [new-hebcal-release]
+    inputs:
+      tweet:
+        description: "Tweet new release?"
+        required: false
+        default: "yes"
 
 jobs:
   release:
     runs-on: ubuntu-latest
     environment: deployment
-    name: Deploy and release
+    name: Build, publish, release, and announce
     steps:
-      - name: Source checkout
+      - name: Checkout sources
         uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Set up Java 11
+      - name: Setup Java 11
         uses: actions/setup-java@v2.3.0
         with:
           distribution: adopt
@@ -29,19 +33,6 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
 
-      - name: Set up Node 16
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
-
-      - name: Install global node modules
-        run: >
-          npm i -g
-          conventional-changelog-cli
-          conventional-changelog-conventionalcommits
-          conventional-recommended-bump
-          git-semver-tags
-
       - name: Configure git
         run: |
           git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
@@ -50,33 +41,23 @@ jobs:
           git config --global tag.gpgSign true
           git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
 
-      - name: Initiate an ssh agent
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: Determine version and create changelog
+        id: bumper
+        uses: tomerfi/version-bumper-action@1.0.0
         with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-      - name: Set version info
-        id: version
-        run: |
-          new_version=$(bash scripts/get_next_bump.sh)
-          next_iteration=$(bash scripts/get_next_dev_iteration.sh --tag $new_version --label -SNAPSHOT)
-          echo "::set-output name=new_version::$new_version"
-          echo "::set-output name=next_iteration::$next_iteration"
-
-      - name: Create CHANGELOG.md for sourcing the release notes
-        run: bash scripts/create_changelog.sh --tag ${{ steps.version.outputs.new_version }}
+          changelog: true
+          label: -SNAPSHOT
 
       - name: Deploy to OSSRH
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: >
           mvn release:prepare -B -ff
-          -Dtag=${{ steps.version.outputs.new_version }}
-          -DreleaseVersion=${{ steps.version.outputs.new_version }}
-          -DdevelopmentVersion=${{ steps.version.outputs.next_iteration}}
+          -Dtag=${{ steps.bumper.outputs.new_version }}
+          -DreleaseVersion=${{ steps.bumper.outputs.new_version }}
+          -DdevelopmentVersion=${{ steps.bumper.outputs.next_dev_iteration}}
           && mvn release:perform -B -ff
 
       - name: Dispatch release event for jbang catalog
@@ -85,17 +66,17 @@ jobs:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
           repository: TomerFi/jbang-catalog
-          client-payload: '{"release": "${{ steps.version.outputs.new_version }}"}'
+          client-payload: '{"release": "${{ steps.bumper.outputs.new_version }}"}'
 
       - name: Release to GitHub
         id: gh_release
         uses: ncipollo/release-action@v1.8.8
         with:
-          bodyFile: CHANGELOG.md
-          tag: ${{ steps.version.outputs.new_version }}
-          token: ${{ secrets.GH_RELEASE_PAT }}
+          bodyFile: changelog-${{ steps.bumper.outputs.new_version }}.md
+          tag: ${{ steps.bumper.outputs.new_version }}
 
       - name: Tweet new release
+        if: ${{ github.event.inputs.tweet == 'yes' }}
         uses: lazy-actions/tweet-action@1.0.1
         with:
           oauth_consumer_key: ${{ secrets.TWITTER_API_KEY }}
@@ -103,7 +84,7 @@ jobs:
           oauth_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           message: |
-            🚀🎉 Hebcal-api ${{ steps.version.outputs.new_version }} has been released! 🎉🚀
+            🚀🎉 Hebcal-api ${{ steps.bumper.outputs.new_version }} has been released! 🎉🚀
             ${{ steps.gh_release.outputs.html_url }}
 
             #hebcal_java_api

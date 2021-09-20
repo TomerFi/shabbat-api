@@ -35,7 +35,7 @@ LICENSE text eol=lf
 *.toml text eol=lf
 *.yaml text eol=lf
 *.yml text eol=lf
-.editorconfig text eol=crlf
+.editorconfig text eol=lf
 .env text eol=lf
 package-lock.json binary
 Makefile text eol=lf

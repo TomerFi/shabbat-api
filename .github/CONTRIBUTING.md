@@ -21,8 +21,7 @@ Contributing is pretty straight-forward:
 ```shell
 docker run --rm -e RUN_LOCAL=true -e LINTER_RULES_PATH=. -e VALIDATE_EDITORCONFIG=true \
 -e VALIDATE_JAVA=true -e VALIDATE_JSON=true -e VALIDATE_MARKDOWN=true -e VALIDATE_XML=true \
--e VALIDATE_YAML=true -e VALIDATE_SHELL_SHFMT=true -e FILTER_REGEX_EXCLUDE="(.git|.*.tap|/target/)" \
--v ${PWD}:/tmp/lint ghcr.io/github/super-linter:slim-v4
+-e VALIDATE_YAML=true -v ${PWD}:/tmp/lint ghcr.io/github/super-linter:slim-v4
 ```
 
 ### JPMS Project

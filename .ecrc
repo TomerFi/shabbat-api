@@ -4,7 +4,7 @@
   "IgnoreDefaults": false,
   "SpacesAftertabs": false,
   "NoColor": false,
-  "Exclude": [".classpath", "target", "*.tap", ".settings", ".factorypath", ".git"],
+  "Exclude": ["src/test", "pom.xml", "sun_checks.xml"],
   "AllowedContentTypes": [],
   "PassedFiles": [],
   "Disable": {
@@ -13,6 +13,6 @@
     "InsertFinalNewline": false,
     "TrimTrailingWhitespace": false,
     "IndentSize": false,
-    "MaxLineLength": true
+    "MaxLineLength": false
   }
 }

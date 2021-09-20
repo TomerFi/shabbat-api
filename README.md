@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD013 -->
-# A Java SDK encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1]
+# A Java SDK encapsulating HebCal's REST API</br>[![maven-central-version]][7] [![java-min-version]][11] [![javadoc-io-badge]][9]</br>[![gh-build-status]][0] [![codecov-coverage]][1] <!-- editorconfig-checker-disable-line -->
 <!-- markdownlint-enable MD013 -->
 
 The library offers a Java Service encapsulating [HebCal][3]'s REST API.
@@ -53,6 +53,7 @@ This repository has no direct relations with [HebCal][3].</br>
 The artifact constructed with this repository merely wraps the publicly open REST API with a Java
 API.
 
+<!-- editorconfig-checker-disable -->
 <!-- Real Links -->
 [0]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml
 [1]: https://codecov.io/gh/TomerFi/hebcal-api
@@ -72,3 +73,4 @@ API.
 [maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven&label=Maven%20Central
 [javadoc-io-badge]: https://javadoc.io/badge2/info.tomfi.hebcal/hebcal-api/Javadoc.io.svg
 [java-min-version]: https://badgen.net/badge/Java%20Version/11/5382a1
+<!-- editorconfig-checker-enable -->
