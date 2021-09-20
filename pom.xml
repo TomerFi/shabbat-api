@@ -33,7 +33,7 @@
     <junit-pioneer.version>1.4.2</junit-pioneer.version>
     <opentest4j.version>1.2.0</opentest4j.version>
     <mockito.version>3.12.4</mockito.version>
-    <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
+    <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
     <slf4j.version>1.7.32</slf4j.version>
     <wiremock.version>2.31.0</wiremock.version>
     <!-- Plugins -->
