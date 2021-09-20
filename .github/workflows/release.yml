@@ -70,7 +70,7 @@ jobs:
 
       - name: Release to GitHub
         id: gh_release
-        uses: ncipollo/release-action@v1.8.8
+        uses: ncipollo/release-action@v1.8.9
         with:
           bodyFile: changelog-${{ steps.bumper.outputs.new_version }}.md
           tag: ${{ steps.bumper.outputs.new_version }}
