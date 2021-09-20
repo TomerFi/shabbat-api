@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
     <asm.version>9.2</asm.version>
-    <assertj.version>3.20.2</assertj.version>
+    <assertj.version>3.21.0</assertj.version>
     <auto-service.version>1.0</auto-service.version>
     <auto-value.version>1.8.2</auto-value.version>
     <awaitility.version>4.1.0</awaitility.version>
