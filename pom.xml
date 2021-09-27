@@ -407,7 +407,7 @@
           <version>${maven-release-plugin.version}</version>
           <configuration>
             <arguments>-Pprepare-deployment,sign-deployment,deploy-ossrh</arguments>
-            <scmCommentPrefix>build(release): </scmCommentPrefix>
+            <scmCommentPrefix>build(release): [skip ci] </scmCommentPrefix>
             <signTag>true</signTag>
           </configuration>
         </plugin>

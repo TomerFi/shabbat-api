@@ -28,9 +28,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: false
-          LINTER_RULES_PATH: .
-          FILTER_REGEX_EXCLUDE: /target/
+          IGNORE_GITIGNORED_FILES: true
+          IGNORE_GENERATED_FILES: true
           VALIDATE_EDITORCONFIG: true
+          VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JAVA: true
           VALIDATE_JSON: true
           VALIDATE_MARKDOWN: true
@@ -42,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build project
     steps:
-      - name: Source checkout
+      - name: Checkout sources
         uses: actions/checkout@v2.3.4
 
       - name: Setup Java 11
@@ -53,7 +54,7 @@ jobs:
           cache: maven
 
       - name: Verify the project and create coverage report
-        run: mvn clean verify jacoco:report -B -ff
+        run: mvn verify jacoco:report -B -ff
 
       - name: Report test summary
         uses: EnricoMi/publish-unit-test-result-action@v1.19
@@ -62,7 +63,7 @@ jobs:
           test_changes_limit: 0
           files: target/junit-platform/TEST-junit-jupiter.xml
 
-      - name: Push to codecov
+      - name: Push coverage report
         uses: codecov/codecov-action@v2.1.0
         with:
           file: target/site/jacoco/jacoco.xml

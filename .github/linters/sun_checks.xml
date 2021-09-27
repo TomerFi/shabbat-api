@@ -15,7 +15,7 @@
   </module>
 
   <module name="SuppressionFilter">
-    <property name="file" value="suppressions.xml"/>
+    <property name="file" value=".github/linters/suppressions.xml"/>
     <property name="optional" value="true"/>
   </module>
 

@@ -55,7 +55,7 @@ API.
 
 <!-- editorconfig-checker-disable -->
 <!-- Real Links -->
-[0]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml
+[0]: https://github.com/TomerFi/hebcal-api/actions/workflows/stage.yml
 [1]: https://codecov.io/gh/TomerFi/hebcal-api
 [3]: https://www.hebcal.com/
 [4]: https://www.hebcal.com/shabbat
@@ -69,7 +69,7 @@ API.
 [12]: https://www.jbang.dev/
 <!-- Badges Links -->
 [codecov-coverage]: https://codecov.io/gh/TomerFi/hebcal-api/branch/master/graph/badge.svg
-[gh-build-status]: https://github.com/TomerFi/hebcal-api/actions/workflows/pre_release.yml/badge.svg
+[gh-build-status]: https://github.com/TomerFi/hebcal-api/actions/workflows/stage.yml/badge.svg
 [maven-central-version]: https://badgen.net/maven/v/maven-central/info.tomfi.hebcal/hebcal-api?icon=maven&label=Maven%20Central
 [javadoc-io-badge]: https://javadoc.io/badge2/info.tomfi.hebcal/hebcal-api/Javadoc.io.svg
 [java-min-version]: https://badgen.net/badge/Java%20Version/11/5382a1
