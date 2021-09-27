@@ -6,6 +6,14 @@ The library offers a Java Service encapsulating [HebCal][3]'s REST API.
 
 Using the API:
 
+```xml
+<dependency>
+  <groupId>info.tomfi.hebcal</groupId>
+  <artifactId>hebcal-api</artifactId>
+  <version>2.1.6</version>
+</dependency>
+```
+
 ```java
 // get the provider from the service loader
 var shabbatApi = ServiceLoader.load(ShabbatAPI.class).findFirst().get();
