@@ -22,4 +22,4 @@ jobs:
       - name: Verify with commitlint
         uses: wagoid/commitlint-github-action@v4.1.4
         with:
-          configFile: ".github/linters/.commitlintrc.yml"
+          configFile: ".github/configs/.commitlintrc.yml"
