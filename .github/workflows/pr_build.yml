@@ -42,15 +42,18 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     name: Build project
+    strategy:
+      matrix:
+        java: [11, 17]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2.3.5
 
-      - name: Setup Java 11
+      - name: Setup Java ${{ matrix.java }}
         uses: actions/setup-java@v2.3.1
         with:
           distribution: adopt
-          java-version: 11
+          java-version: ${{ matrix.java }}
           cache: maven
 
       - name: Verify the project and create coverage report
@@ -58,13 +61,14 @@ jobs:
 
       - name: Report test summary
         uses: EnricoMi/publish-unit-test-result-action@v1.23
-        if: always()
+        if: ${{ matrix.java == 11 }}
         with:
           test_changes_limit: 0
           files: target/junit-platform/TEST-junit-jupiter.xml
 
       - name: Push coverage report
         uses: codecov/codecov-action@v2.1.0
+        if: ${{ matrix.java == 11 }}
         with:
           file: target/site/jacoco/jacoco.xml
           fail_ci_if_error: true
