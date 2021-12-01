@@ -60,7 +60,7 @@ jobs:
         run: mvn verify jacoco:report -B -ff
 
       - name: Report test summary
-        uses: EnricoMi/publish-unit-test-result-action@v1.24
+        uses: EnricoMi/publish-unit-test-result-action@v1.25
         if: ${{ matrix.java == 11 }}
         with:
           test_changes_limit: 0
