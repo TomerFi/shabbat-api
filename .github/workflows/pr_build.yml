@@ -6,15 +6,21 @@ on:
     branches:
       - master
 
+permissions:
+  pull-requests: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     name: Lint project
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - name: Check for spelling mistakes
         uses: reviewdog/action-misspell@v1.9
@@ -48,6 +54,8 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.head_ref }
 
       - name: Setup Java ${{ matrix.java }}
         uses: actions/setup-java@v2.4.0
