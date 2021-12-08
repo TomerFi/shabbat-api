@@ -55,7 +55,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2.4.0
         with:
-          ref: ${{ github.head_ref }
+          ref: ${{ github.head_ref }}
 
       - name: Setup Java ${{ matrix.java }}
         uses: actions/setup-java@v2.4.0
