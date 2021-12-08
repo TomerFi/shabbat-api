@@ -73,8 +73,8 @@ jobs:
           name: reports
           if-no-files-found: error
           path: |
-            ./target/junit-platform/TEST-junit-jupiter.xmlcoverage.xml
-            ./target/site/jacoco/jacoco.xmljunit.xml
+            ./target/junit-platform/TEST-junit-jupiter.xml
+            ./target/site/jacoco/jacoco.xml
 
   report:
     runs-on: ubuntu-latest
