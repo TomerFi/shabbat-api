@@ -17,7 +17,7 @@
     <!-- DEPENDENCIES -->
     <apiguardian-api.version>1.1.2</apiguardian-api.version>
     <asm.version>9.2</asm.version>
-    <assertj.version>3.21.0</assertj.version>
+    <assertj.version>3.22.0</assertj.version>
     <auto-service.version>1.0.1</auto-service.version>
     <auto-value.version>1.9</auto-value.version>
     <awaitility.version>4.1.1</awaitility.version>
