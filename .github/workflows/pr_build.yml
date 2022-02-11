@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Check for spelling mistakes
-        uses: reviewdog/action-misspell@v1.10
+        uses: reviewdog/action-misspell@v1.11
         with:
           locale: "US"
           reporter: github-pr-check
