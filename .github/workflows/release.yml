@@ -4,10 +4,13 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
+      title:
+        description: "Release title"
+        required: true
       tweet:
         description: "Tweet new release?"
         required: false
-        default: "yes"
+        default: "no"
 
 jobs:
   release:
@@ -35,17 +38,13 @@ jobs:
 
       - name: Configure git
         run: |
-          git config --global user.name "${{ secrets.GIT_VERIFIED_USER_NAME }}"
-          git config --global user.email "${{ secrets.GIT_VERIFIED_USER_EMAIL }}"
-          git config --global commit.gpgSign true
-          git config --global tag.gpgSign true
-          git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY_ID }}
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Determine version and create changelog
         id: bumper
         uses: tomerfi/version-bumper-action@1.1.2
         with:
-          changelog: true
           label: -SNAPSHOT
 
       - name: Initiate an ssh agent
@@ -73,12 +72,18 @@ jobs:
           repository: TomerFi/jbang-catalog
           client-payload: '{"release": "${{ steps.bumper.outputs.new_version }}"}'
 
-      - name: Release to GitHub
+      - name: Create a release
         id: gh_release
-        uses: ncipollo/release-action@v1.9.0
+        uses: actions/github-script@v6
         with:
-          bodyFile: changelog-${{ steps.bumper.outputs.new_version }}.md
-          tag: ${{ steps.bumper.outputs.new_version }}
+          script: |
+            const repo_name = context.payload.repository.full_name
+            const response = await github.request('POST /repos/' + repo_name + '/releases', {
+              tag_name: '${{ steps.bumper.outputs.new_version }}',
+              name: '${{ github.event.inputs.title }}',
+              generate_release_notes: true
+            })
+            core.setOutput('html_url', response.data.html_url)
 
       - name: Update readme usage section
         run: |
