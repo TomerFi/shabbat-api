@@ -32,7 +32,7 @@
     <javafaker.version>1.0.2</javafaker.version>
     <json-smart.version>2.4.8</json-smart.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <junit-pioneer.version>1.5.0</junit-pioneer.version>
+    <junit-pioneer.version>1.6.0</junit-pioneer.version>
     <opentest4j.version>1.2.0</opentest4j.version>
     <mockito.version>4.3.1</mockito.version>
     <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
