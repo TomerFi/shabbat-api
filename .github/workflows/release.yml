@@ -87,13 +87,19 @@ jobs:
 
       - name: Update readme usage section
         run: |
-          sed -i 's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.new_version }}<\/version>/g' .github/README.md
+          sed -i
+          's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.new_version }}<\/version>/g'
+          .github/README.md
 
       - name: Push modifications
+        # editorconfig-checker-disable
+        # yamllint disable
         run: |
           git add .github/README.md
           git commit -m "docs: updated usage section with ${{ steps.bumper.outputs.new_version }} [skip ci]"
           git push
+        # editorconfig-checker-enable
+        # yamllint enable
 
       - name: Tweet new release
         if: ${{ github.event.inputs.tweet == 'yes' }}
