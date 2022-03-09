@@ -34,7 +34,7 @@
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-pioneer.version>1.6.1</junit-pioneer.version>
     <opentest4j.version>1.2.0</opentest4j.version>
-    <mockito.version>4.3.1</mockito.version>
+    <mockito.version>4.4.0</mockito.version>
     <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
     <slf4j.version>1.7.36</slf4j.version>
     <wiremock.version>2.32.0</wiremock.version>
@@ -234,6 +234,11 @@
         <version>${commons-lang3.version}</version>
       </dependency>
       <!-- BYTECODE DEPENDENCIES -->
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>${byte-buddy.version}</version>
+      </dependency>
       <dependency>
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy-agent</artifactId>
