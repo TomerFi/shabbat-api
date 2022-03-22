@@ -65,7 +65,7 @@ jobs:
           && mvn release:perform -B -ff
 
       - name: Dispatch release event for jbang catalog
-        uses: peter-evans/repository-dispatch@v1.1.3
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: hebcal-api-released
