@@ -422,7 +422,6 @@
           <configuration>
             <arguments>-Pprepare-deployment,sign-deployment,deploy-ossrh</arguments>
             <scmCommentPrefix>build(release): [skip ci] </scmCommentPrefix>
-            <signTag>true</signTag>
           </configuration>
         </plugin>
         <plugin>
