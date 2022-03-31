@@ -58,11 +58,10 @@ jobs:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: >
-          mvn release:prepare -B -ff
+          mvn release:prepare release:perform -B -ff
           -Dtag=${{ steps.bumper.outputs.new_version }}
           -DreleaseVersion=${{ steps.bumper.outputs.new_version }}
           -DdevelopmentVersion=${{ steps.bumper.outputs.next_dev_iteration}}
-          && mvn release:perform -B -ff
 
       - name: Dispatch release event for jbang catalog
         uses: peter-evans/repository-dispatch@v2
@@ -97,7 +96,7 @@ jobs:
             core.setOutput('html_url', response.data.html_url)
 
       - name: Update readme usage section
-        run: |
+        run: >
           sed -i
           's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.new_version }}<\/version>/g'
           .github/README.md
