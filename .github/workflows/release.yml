@@ -41,7 +41,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Determine version and create changelog
+      - name: Determine next SemVer
         id: bumper
         uses: tomerfi/version-bumper-action@1.1.2
         with:
@@ -87,8 +87,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            val repo_name = context.payload.repository.full_name
-            val response = await github.request('POST /repos/' + repo_name + '/releases', {
+            const repo_name = context.payload.repository.full_name
+            const response = await github.request('POST /repos/' + repo_name + '/releases', {
               tag_name: '${{ steps.bumper.outputs.new_version }}',
               name: '${{ steps.release_name.outputs.value }}',
               generate_release_notes: true
