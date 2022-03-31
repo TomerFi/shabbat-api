@@ -10,7 +10,7 @@ Using the API:
 <dependency>
   <groupId>info.tomfi.hebcal</groupId>
   <artifactId>hebcal-api</artifactId>
-  <version>2.1.7</version>
+  <version>2.1.8</version>
 </dependency>
 ```
 
