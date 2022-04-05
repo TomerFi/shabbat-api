@@ -95,7 +95,7 @@ jobs:
           files: ./target/junit-platform/TEST-junit-jupiter.xml
 
       - name: Push coverage report
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3
         if: ${{ matrix.java == env.MAIN_JAVA_VER }}
         with:
           file: ./target/site/jacoco/jacoco.xml
