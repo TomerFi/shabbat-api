@@ -43,7 +43,7 @@ jobs:
 
       - name: Determine next SemVer
         id: bumper
-        uses: tomerfi/version-bumper-action@1.1.2
+        uses: tomerfi/version-bumper-action@1.1.3
         with:
           label: -SNAPSHOT
 
