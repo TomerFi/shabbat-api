@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Check for spelling mistakes
-        uses: reviewdog/action-misspell@v1.11
+        uses: reviewdog/action-misspell@v1.12
         with:
           locale: "US"
           reporter: github-pr-check
