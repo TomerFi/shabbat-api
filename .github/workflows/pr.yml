@@ -88,7 +88,7 @@ jobs:
         run: mvn verify jacoco:report -B -ff
 
       - name: Report test summary
-        uses: EnricoMi/publish-unit-test-result-action@v1.35
+        uses: EnricoMi/publish-unit-test-result-action@v1.36
         if: ${{ matrix.java == env.MAIN_JAVA_VER  && always() }}
         with:
           test_changes_limit: 0
