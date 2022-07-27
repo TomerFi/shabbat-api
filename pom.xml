@@ -31,7 +31,7 @@
     <jackson.version>2.13.3</jackson.version>
     <javafaker.version>1.0.2</javafaker.version>
     <json-smart.version>2.4.8</json-smart.version>
-    <junit-jupiter.version>5.8.2</junit-jupiter.version>
+    <junit-jupiter.version>5.9.0</junit-jupiter.version>
     <junit-pioneer.version>1.7.1</junit-pioneer.version>
     <opentest4j.version>1.2.0</opentest4j.version>
     <mockito.version>4.6.1</mockito.version>
