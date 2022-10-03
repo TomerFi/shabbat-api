@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
     <apiguardian-api.version>1.1.2</apiguardian-api.version>
-    <asm.version>9.3</asm.version>
+    <asm.version>9.4</asm.version>
     <assertj.version>3.23.1</assertj.version>
     <auto-service.version>1.0.1</auto-service.version>
     <auto-value.version>1.9</auto-value.version>
