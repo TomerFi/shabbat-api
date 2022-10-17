@@ -1,4 +1,4 @@
-# Contributing to `hebcal-api`</br>[![conventional-commits]][0]
+# Contributing to `hebcal-api`
 
 :clap: First off, thank you for taking the time to contribute. :clap:
 
@@ -48,19 +48,3 @@ It is encourged to be manually used in development stage to achive more reliable
 mvn pitest:mutationCoverage
 ```
 
-## Commit messages
-
-Commit messages must:
-
-- adhere the [Conventional Commits Specification][0]
-- be signed-off based on the [Developer Certificate of Origin][1]
-
-### Code of Conduct
-
-Please check the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) document before contributing.
-
-<!-- Real Links -->
-[0]: https://conventionalcommits.org
-[1]: https://developercertificate.org
-<!-- Badges Links -->
-[conventional-commits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
