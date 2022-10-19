@@ -48,7 +48,7 @@ jobs:
           label: -SNAPSHOT
 
       - name: Initiate an ssh agent
-        uses: webfactory/ssh-agent@v0.5.4
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
