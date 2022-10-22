@@ -1,51 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>info.tomfi.hebcal</groupId>
-  <artifactId>hebcal-api</artifactId>
+  <groupId>info.tomfi.shabbat</groupId>
+  <artifactId>shabbat-api</artifactId>
   <version>2.1.10-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Hebcal API</name>
-  <description>A Java API encapsulating HebCal's REST API.</description>
-  <url>https://github.com/TomerFi/hebcal-api</url>
+  <name>Shabbat API</name>
+  <description>Hebrew Shabbat Java API</description>
+  <url>https://github.com/TomerFi/shabbat-api</url>
   <inceptionYear>2021</inceptionYear>
 
   <properties>
-    <jacoco.coverage.minimum>85%</jacoco.coverage.minimum>
+    <jacoco.coverage.minimum>90%</jacoco.coverage.minimum>
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
-    <apiguardian-api.version>1.1.2</apiguardian-api.version>
-    <asm.version>9.4</asm.version>
-    <assertj.version>3.23.1</assertj.version>
-    <auto-service.version>1.0.1</auto-service.version>
-    <auto-value.version>1.10</auto-value.version>
-    <awaitility.version>4.2.0</awaitility.version>
-    <byte-buddy.version>1.12.18</byte-buddy.version>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
-    <descartes.version>1.3.2</descartes.version>
-    <equalsverifier.version>3.10.1</equalsverifier.version>
-    <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
-    <guava.version>31.1-jre</guava.version>
-    <hamcrest.version>2.2</hamcrest.version>
     <jackson.version>2.13.4</jackson.version>
-    <javafaker.version>1.0.2</javafaker.version>
-    <json-smart.version>2.4.8</json-smart.version>
+    <!-- TESTING DEPENDENCIES -->
+    <assertj.version>3.23.1</assertj.version>
+    <byte-buddy.version>1.12.18</byte-buddy.version>
+    <equalsverifier.version>3.10.1</equalsverifier.version>
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
-    <junit-pioneer.version>1.7.1</junit-pioneer.version>
-    <opentest4j.version>1.2.0</opentest4j.version>
     <mockito.version>4.8.1</mockito.version>
-    <pitest-junit5-plugin.version>1.1.0</pitest-junit5-plugin.version>
-    <slf4j.version>2.0.3</slf4j.version>
-    <wiremock.version>2.34.0</wiremock.version>
     <!-- Plugins -->
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
     <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
-    <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-    <maven-help-plugin.version>3.3.0</maven-help-plugin.version>
     <maven-install-plugin.version>3.0.1</maven-install-plugin.version>
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
@@ -53,13 +35,10 @@
     <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
     <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <junit-platform-maven-plugin.version>1.1.6</junit-platform-maven-plugin.version>
-    <license-maven-plugin.version>4.1</license-maven-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-    <pitest-maven.version>1.9.8</pitest-maven.version>
   </properties>
 
   <licenses>
@@ -81,34 +60,23 @@
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/TomerFi/hebcal-api/issues</url>
+    <url>https://github.com/TomerFi/shabbat-api/issues</url>
   </issueManagement>
 
   <scm>
-    <url>https://github.com/TomerFi/hebcal-api</url>
-    <connection>scm:git:git@github.com:TomerFi/hebcal-api.git</connection>
-    <developerConnection>scm:git:git@github.com:TomerFi/hebcal-api.git</developerConnection>
+    <url>https://github.com/TomerFi/shabbat-api</url>
+    <connection>scm:git:git@github.com:TomerFi/shabbat-api.git</connection>
+    <developerConnection>scm:git:git@github.com:TomerFi/shabbat-api.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <ciManagement>
     <system>GitHub Workflows</system>
-    <url>https://github.com/TomerFi/hebcal-api/actions</url>
+    <url>https://github.com/TomerFi/shabbat-api/actions</url>
   </ciManagement>
 
   <dependencyManagement>
     <dependencies>
-      <!-- ANNOTATION PROCESSING DEPENDENCIES -->
-      <dependency>
-        <groupId>com.google.auto.service</groupId>
-        <artifactId>auto-service-annotations</artifactId>
-        <version>${auto-service.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.auto.value</groupId>
-        <artifactId>auto-value-annotations</artifactId>
-        <version>${auto-value.version}</version>
-      </dependency>
       <!-- SERIALIZATION DEPENDENCIES -->
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
@@ -123,22 +91,9 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.13.4.2</version>
-        <!-- temporary fix for addressing security vulnerability -->
-        <!-- https://github.com/FasterXML/jackson-databind/issues/3432 -->
-        <!-- https://github.com/FasterXML/jackson-databind/issues/3428 -->
+        <version>${jackson.version}</version>
       </dependency>
       <!-- TESTING DEPENDENCIES -->
-      <dependency>
-        <groupId>com.github.javafaker</groupId>
-        <artifactId>javafaker</artifactId>
-        <version>${javafaker.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.tomakehurst</groupId>
-        <artifactId>wiremock-jre8</artifactId>
-        <version>${wiremock.version}</version>
-      </dependency>
       <dependency>
         <groupId>nl.jqno.equalsverifier</groupId>
         <artifactId>equalsverifier</artifactId>
@@ -150,34 +105,14 @@
         <version>${assertj.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.awaitility</groupId>
-        <artifactId>awaitility</artifactId>
-        <version>${awaitility.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
         <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
         <version>${junit-jupiter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit-pioneer</groupId>
-        <artifactId>junit-pioneer</artifactId>
-        <version>${junit-pioneer.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-core</artifactId>
-        <version>${hamcrest.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
@@ -188,53 +123,6 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-junit-jupiter</artifactId>
         <version>${mockito.version}</version>
-      </dependency>
-      <!-- LOGGING DEPENDENCIES -->
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-jdk14</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <!-- DEPENDENCY CONVERGENCE RESOLUTION -->
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${guava.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apiguardian</groupId>
-        <artifactId>apiguardian-api</artifactId>
-        <version>${apiguardian-api.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>net.minidev</groupId>
-        <artifactId>json-smart</artifactId>
-        <version>${json-smart.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.ow2.asm</groupId>
-        <artifactId>asm</artifactId>
-        <version>${asm.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest</artifactId>
-        <version>${hamcrest.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.opentest4j</groupId>
-        <artifactId>opentest4j</artifactId>
-        <version>${opentest4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
       </dependency>
       <!-- BYTECODE DEPENDENCIES -->
       <dependency>
@@ -251,17 +139,6 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- ANNOTATION PROCESSING DEPENDENCIES -->
-    <dependency>
-      <groupId>com.google.auto.value</groupId>
-      <artifactId>auto-value-annotations</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.auto.service</groupId>
-      <artifactId>auto-service-annotations</artifactId>
-      <scope>provided</scope>
-    </dependency>
     <!-- SERIALIZATION DEPENDENCIES -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -277,27 +154,6 @@
     </dependency>
     <!-- TESTING DEPENDENCIES -->
     <dependency>
-      <groupId>com.github.javafaker</groupId>
-      <artifactId>javafaker</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock-jre8</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <!-- The handlebars artifacts introduces split packages preventing jpms and have no usage in this project -->
-        <exclusion>
-          <groupId>com.github.jknack</groupId>
-          <artifactId>handlebars</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.github.jknack</groupId>
-          <artifactId>handlebars-helpers</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
       <scope>test</scope>
@@ -308,34 +164,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.awaitility</groupId>
-      <artifactId>awaitility</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit-pioneer</groupId>
-      <artifactId>junit-pioneer</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.platform</groupId>
-          <artifactId>junit-platform-commons</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.junit.platform</groupId>
-          <artifactId>junit-platform-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- PIT needs jupiter engine on the classpath. -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -351,18 +181,6 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- hamcrest is needed by awaitility -->
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- wiremock-jre8 uses slf4j api and requires an implementaion, jdk14 implementaion uses jul  -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jdk14</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -389,16 +207,8 @@
           <version>${maven-dependency-plugin.version}</version>
         </plugin>
         <plugin>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <version>${maven-enforcer-plugin.version}</version>
-        </plugin>
-        <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${maven-gpg-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-help-plugin</artifactId>
-          <version>${maven-help-plugin.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -420,7 +230,7 @@
           <artifactId>maven-release-plugin</artifactId>
           <version>${maven-release-plugin.version}</version>
           <configuration>
-            <arguments>-Pprepare-deployment,sign-deployment,deploy-ossrh</arguments>
+            <arguments>-Pprep,sign,deploy</arguments>
             <scmCommentPrefix>build(release): [skip ci] </scmCommentPrefix>
           </configuration>
         </plugin>
@@ -436,39 +246,8 @@
           <artifactId>maven-source-plugin</artifactId>
           <version>${maven-source-plugin.version}</version>
         </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-        </plugin>
 
         <!-- Third Party Plugins -->
-        <plugin>
-          <groupId>com.mycila</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>${license-maven-plugin.version}</version>
-          <configuration>
-            <excludes>
-              <exclude>**/module-info.java</exclude>
-              <exclude>**/package-info.java</exclude>
-            </excludes>
-            <includes>
-              <include>**/*.java</include>
-              <!--<include>**/*.properties</include>-->
-            </includes>
-            <inlineHeader><![CDATA[Copyright Tomer Figenblat.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.]]>
-            </inlineHeader>
-          </configuration>
-        </plugin>
-
         <plugin>
           <groupId>de.sormuras.junit</groupId>
           <artifactId>junit-platform-maven-plugin</artifactId>
@@ -489,9 +268,6 @@ limitations under the License.]]>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-maven-plugin.version}</version>
           <configuration>
-            <excludes>
-              <exclude>info/tomfi/hebcal/shabbat/**/AutoValue_*</exclude> <!-- generated by auto-value -->
-            </excludes>
             <rules>
               <rule>
                 <element>BUNDLE</element>
@@ -508,65 +284,6 @@ limitations under the License.]]>
         </plugin>
 
         <plugin>
-          <groupId>org.pitest</groupId>
-          <artifactId>pitest-maven</artifactId>
-          <version>${pitest-maven.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.pitest</groupId>
-              <artifactId>pitest-junit5-plugin</artifactId>
-              <version>${pitest-junit5-plugin.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>eu.stamp-project</groupId>
-              <artifactId>descartes</artifactId>
-              <version>${descartes.version}</version>
-            </dependency>
-          </dependencies>
-          <configuration>
-            <mutationEngine>descartes</mutationEngine>
-            <features>
-              <feature>
-                +STOP_METHODS(except[enum] except[to_string] except[hash_code] except[clinit])
-              </feature>
-            </features>
-            <mutators>
-              <mutator>void</mutator>
-              <mutator>null</mutator>  <!-- null mutator appears to timeout on wiremok -->
-              <mutator>empty</mutator>
-              <mutator>new</mutator>
-              <mutator>optional</mutator>
-              <mutator>argument </mutator>
-              <mutator>this</mutator>
-              <!-- Constant Mutator -->
-              <mutator>true</mutator>
-              <mutator>false</mutator>
-              <mutator>-1</mutator>
-              <mutator>0</mutator>
-              <mutator>1</mutator>
-              <mutator>(byte)-1</mutator>
-              <mutator>(byte)0</mutator>
-              <mutator>(byte)1</mutator>
-              <mutator>(short)-1</mutator>
-              <mutator>(short)0</mutator>
-              <mutator>(short)1</mutator>
-              <mutator>-1L</mutator>
-              <mutator>0L</mutator>
-              <mutator>1L</mutator>
-              <mutator>-1.0</mutator>
-              <mutator>0.0</mutator>
-              <mutator>1.0</mutator>
-              <mutator>-1.0f</mutator>
-              <mutator>0.0f</mutator>
-              <mutator>1.0f</mutator>
-              <mutator>'\40'</mutator>
-              <mutator>'A'</mutator>
-              <mutator>""</mutator>
-            </mutators>
-          </configuration>
-        </plugin>
-
-        <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
           <version>${nexus-staging-maven-plugin.version}</version>
@@ -576,18 +293,6 @@ limitations under the License.]]>
     </pluginManagement>
 
     <plugins>
-
-      <plugin>
-        <artifactId>maven-help-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>active-profiles</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -649,80 +354,17 @@ limitations under the License.]]>
           <executor>JAVA</executor>
           <javaOptions>
             <additionalOptions>
-              <jul>-Djava.util.logging.config.file=src/test/resources/logging-test.properties</jul>
               <jacoco>${jacoco.java.option}</jacoco>
               <bytebuddy>-javaagent:${project.build.directory}/dependency/byte-buddy-agent-${byte-buddy.version}.jar</bytebuddy>
             </additionalOptions>
           </javaOptions>
           <parameters>
             <junit.jupiter.execution.parallel.enabled>true</junit.jupiter.execution.parallel.enabled>
+            <junit.jupiter.execution.parallel.mode.default>concurrent</junit.jupiter.execution.parallel.mode.default>
             <junit.jupiter.displayname.generator.default>org.junit.jupiter.api.DisplayNameGenerator$ReplaceUnderscores</junit.jupiter.displayname.generator.default>
           </parameters>
         </configuration>
       </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>com.google.auto.value</groupId>
-              <artifactId>auto-value</artifactId>
-              <version>${auto-value.version}</version>
-            </path>
-            <path>
-              <groupId>com.google.auto.service</groupId>
-              <artifactId>auto-service</artifactId>
-              <version>${auto-service.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>extra-enforcer-rules</artifactId>
-            <version>${extra-enforcer-rules.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <rules>
-            <dependencyConvergence />
-            <requireJavaVersion>
-              <version>[11,)</version>
-            </requireJavaVersion>
-            <requireMavenVersion>
-              <version>[3.6,)</version>
-            </requireMavenVersion>
-            <banDuplicateClasses />
-            <banCircularDependencies />
-          </rules>
-        </configuration>
-      </plugin>
-
     </plugins>
 
   </build>
@@ -730,7 +372,7 @@ limitations under the License.]]>
   <profiles>
     <!-- use this profile manually when deploying to ossrh. -->
     <profile>
-      <id>deploy-ossrh</id>
+      <id>deploy</id>
       <distributionManagement>
         <snapshotRepository>
           <id>ossrh</id>
@@ -757,7 +399,7 @@ limitations under the License.]]>
 
     <!-- use this profile manually for packaging of jars to deploy to artifact repository. -->
     <profile>
-      <id>prepare-deployment</id>
+      <id>prep</id>
       <build>
         <plugins>
 
@@ -803,7 +445,7 @@ limitations under the License.]]>
 
     <!-- use this profile manually for signing the deployment files prior to deployment. -->
     <profile>
-      <id>sign-deployment</id>
+      <id>sign</id>
       <build>
         <plugins>
           <plugin>
@@ -822,6 +464,45 @@ limitations under the License.]]>
                 <arg>loopback</arg>
               </gpgArguments>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- use this profile for development stage. -->
+    <profile>
+      <id>dev</id>
+      <properties>
+        <code.coverage.threshold>0%</code.coverage.threshold>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <failOnWarning>false</failOnWarning>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Use this profile to create jacoco execution report. -->
+    <profile>
+      <id>cov</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>jacoco-report</id>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>

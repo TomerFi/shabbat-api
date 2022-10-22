@@ -4,37 +4,10 @@ name: Pull request build
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    name: Lint project
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Lint code base
-        uses: docker://ghcr.io/github/super-linter:slim-v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: false
-          IGNORE_GITIGNORED_FILES: true
-          IGNORE_GENERATED_FILES: true
-          VALIDATE_EDITORCONFIG: true
-          VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_JAVA: true
-          VALIDATE_JSON: true
-          VALIDATE_MARKDOWN: true
-          VALIDATE_XML: true
-          VALIDATE_YAML: true
-
   build:
-    needs: lint
     runs-on: ubuntu-latest
     name: Build project
     permissions:
@@ -57,7 +30,7 @@ jobs:
           cache: maven
 
       - name: Verify the project and create coverage report
-        run: mvn verify jacoco:report -B -ff
+        run: mvn verify -Pcov -B -ff
 
       - name: Report test summary
         uses: EnricoMi/publish-unit-test-result-action@v2

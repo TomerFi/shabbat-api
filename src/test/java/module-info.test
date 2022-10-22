@@ -1,42 +1,14 @@
 --add-modules
-  jdk.unsupported,java.sql,org.assertj.core,org.junit.jupiter.api,org.junit.jupiter.params,awaitility,org.hamcrest,org.mockito,java.instrument,net.bytebuddy,org.slf4j,org.slf4j.jul
+  jdk.unsupported,java.sql,org.assertj.core,org.junit.jupiter.params,org.mockito,net.bytebuddy
 
 --add-reads
-  info.tomfi.hebcal.shabbat=org.assertj.core
+  info.tomfi.shabbat=org.assertj.core
 --add-reads
-  info.tomfi.hebcal.shabbat=org.junit.jupiter.api
+  info.tomfi.shabbat=org.mockito
 --add-reads
-  info.tomfi.hebcal.shabbat=org.junit.jupiter.params
---add-reads
-  info.tomfi.hebcal.shabbat=org.junitpioneer
---add-reads
-  info.tomfi.hebcal.shabbat=nl.jqno.equalsverifier
---add-reads
-  info.tomfi.hebcal.shabbat=com.google.common
---add-reads
-  info.tomfi.hebcal.shabbat=javafaker
---add-reads
-  info.tomfi.hebcal.shabbat=wiremock.jre8
---add-reads
-  info.tomfi.hebcal.shabbat=awaitility
+  info.tomfi.shabbat=nl.jqno.equalsverifier
 
 --add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat=org.junit.platform.commons
+  info.tomfi.shabbat/info.tomfi.shabbat=org.junit.platform.commons
 --add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.impl=org.junit.platform.commons
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.request=org.junit.platform.commons
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=org.junit.platform.commons
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.tools=org.junit.platform.commons
---add-opens
-  org.junitpioneer/org.junitpioneer.jupiter=org.junit.platform.commons
-
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.request=nl.jqno.equalsverifier
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=nl.jqno.equalsverifier
-
---add-opens
-  info.tomfi.hebcal.shabbat/info.tomfi.hebcal.shabbat.response=com.fasterxml.jackson.databind
+  info.tomfi.shabbat/info.tomfi.shabbat=nl.jqno.equalsverifier
