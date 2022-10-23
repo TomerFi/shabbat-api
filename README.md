@@ -25,7 +25,7 @@
 <dependency>
   <groupId>info.tomfi.shabbat</groupId>
   <artifactId>shabbat-api</artifactId>
-  <version>2.1.9</version>
+  <version>3.0.0</version>
 </dependency>
 ```
 
