@@ -92,11 +92,13 @@ System.out.println(response.isRoshChodesh()); // true
 <p>
 
 ```shell
-jbang shabbat_times@tomerfi -g 281184 -d 2022-03-04
+$ jbang shabbat_times@tomerfi -g 281184 -d 2022-03-04
 
-Shabbat times for Jerusalem, Israel:
-- starts on Friday, 1 January 2022, 16:06
-- ends on Saturday, 2 January 2022, 17:37
+Shabbat info for Jerusalem, Israel:
+- starts on Friday, 4 March 2022, 16:59
+- ends on Saturday, 5 March 2022, 18:30
+- the parasha is Parashat Pekudei
+- shabbat is rosh chodesh
 ```
 
 </p>
