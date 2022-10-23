@@ -1,0 +1,46 @@
+{
+  "title": "Hebcal Jerusalem January 2021",
+  "date": "2022-10-23T06:37:49.996Z",
+  "location": {
+    "title": "Jerusalem, Israel",
+    "city": "Jerusalem",
+    "tzid": "Asia/Jerusalem",
+    "latitude": 31.76904,
+    "longitude": 35.21633,
+    "cc": "IL",
+    "country": "Israel",
+    "admin1": "Jerusalem",
+    "asciiname": "Jerusalem",
+    "geo": "geoname",
+    "geonameid": 281184
+  },
+  "range": {
+    "start": "2021-01-01",
+    "end": "2021-01-02"
+  },
+  "items": [
+    {
+      "title": "Candle lighting: 16:06",
+      "date": "2021-01-01T16:06:00+02:00",
+      "category": "candles",
+      "title_orig": "Candle lighting",
+      "hebrew": "הדלקת נרות",
+      "memo": "Parashat Vayechi"
+    },
+    {
+      "title": "Parashat Vayechi",
+      "date": "2021-01-02",
+      "hdate": "18 Tevet 5781",
+      "category": "parashat",
+      "hebrew": "פרשת ויחי",
+      "link": "https://hebcal.com/s/vayechi-20210102?i=on&us=js&um=api"
+    },
+    {
+      "title": "Havdalah (50 min): 17:37",
+      "date": "2021-01-02T17:37:00+02:00",
+      "category": "havdalah",
+      "title_orig": "Havdalah",
+      "hebrew": "הבדלה (50 דקות)"
+    }
+  ]
+}

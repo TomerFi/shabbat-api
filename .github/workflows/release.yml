@@ -67,7 +67,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
-          event-type: hebcal-api-released
+          event-type: shabbat-api-released
           repository: TomerFi/jbang-catalog
           client-payload: '{"release": "${{ steps.bumper.outputs.new_version }}"}'
 
@@ -99,17 +99,13 @@ jobs:
         run: >
           sed -i
           's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.new_version }}<\/version>/g'
-          .github/README.md
+          README.md
 
       - name: Push modifications
-        # editorconfig-checker-disable
-        # yamllint disable
         run: |
-          git add .github/README.md
+          git add README.md
           git commit -m "docs: updated usage section with ${{ steps.bumper.outputs.new_version }} [skip ci]"
           git push
-        # editorconfig-checker-enable
-        # yamllint enable
 
       - name: Tweet new release
         if: ${{ github.event.inputs.tweet == 'yes' }}
@@ -120,7 +116,7 @@ jobs:
           oauth_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           message: |
-            🚀🎉 Hebcal-api ${{ steps.bumper.outputs.new_version }} has been released! 🎉🚀
+            🚀🎉 shabbat-api ${{ steps.bumper.outputs.new_version }} has been released! 🎉🚀
             ${{ steps.gh_release.outputs.html_url }}
 
-            #hebcal_java_api
+            #shabbat_java_api

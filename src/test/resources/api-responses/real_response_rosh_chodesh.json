@@ -1,0 +1,55 @@
+{
+  "title": "Hebcal Jerusalem March 2022",
+  "date": "2022-10-23T15:36:47.984Z",
+  "location": {
+    "title": "Jerusalem, Israel",
+    "city": "Jerusalem",
+    "tzid": "Asia/Jerusalem",
+    "latitude": 31.76904,
+    "longitude": 35.21633,
+    "cc": "IL",
+    "country": "Israel",
+    "admin1": "Jerusalem",
+    "asciiname": "Jerusalem",
+    "geo": "geoname",
+    "geonameid": 281184
+  },
+  "range": {
+    "start": "2022-03-04",
+    "end": "2022-03-05"
+  },
+  "items": [
+    {
+      "title": "Rosh Chodesh Adar II",
+      "date": "2022-03-04",
+      "hdate": "1 Adar II 5782",
+      "category": "roshchodesh",
+      "hebrew": "ראש חודש אדר ב׳",
+      "link": "https://hebcal.com/h/rosh-chodesh-adar-ii-2022?i=on&us=js&um=api",
+      "memo": "Start of month of Adar II (on leap years) on the Hebrew calendar. Adar II (אַדָר ב׳), sometimes \"Adar Bet\" or \"Adar Sheni\", is the 13th month of the Hebrew year, has 29 days, occurs only on leap years, and corresponds to February or March on the Gregorian calendar.  רֹאשׁ חוֹדֶשׁ, transliterated Rosh Chodesh or Rosh Hodesh, is a minor holiday that occurs at the beginning of every month in the Hebrew calendar. It is marked by the birth of a new moon"
+    },
+    {
+      "title": "Candle lighting: 16:59",
+      "date": "2022-03-04T16:59:00+02:00",
+      "category": "candles",
+      "title_orig": "Candle lighting",
+      "hebrew": "הדלקת נרות",
+      "memo": "Parashat Pekudei"
+    },
+    {
+      "title": "Parashat Pekudei",
+      "date":"2022-03-05",
+      "hdate": "2 Adar II 5782",
+      "category": "parashat",
+      "hebrew": "פרשת פקודי",
+      "link": "https://hebcal.com/s/pekudei-20220305?i=on&us=js&um=api"
+    },
+    {
+      "title": "Havdalah (50 min): 18:30",
+      "date": "2022-03-05T18:30:00+02:00",
+      "category": "havdalah",
+      "title_orig": "Havdalah",
+      "hebrew": "הבדלה (50 דקות)"
+    }
+  ]
+}
