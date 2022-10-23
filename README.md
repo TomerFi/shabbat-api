@@ -102,3 +102,32 @@ Shabbat times for Jerusalem, Israel:
 </p>
 
 </details>
+
+<details>
+<summary>Snapshots access</summary>
+
+<p align="left">
+
+<img src="https://img.shields.io/maven-metadata/v?color=yellow&label=latest&metadataUrl=https%3A%2F%2Foss.sonatype.org%2Fcontent%2Frepositories%2Fsnapshots%2Finfo%2Ftomfi%2Fshabbat%2Fshabbat-api%2Fmaven-metadata.xml&versionSuffix=SNAPSHOT" />
+
+Snapshots are deployed to <em>OSSRH</em>:
+</p>
+
+<p align="left">
+
+```yaml
+<repository>
+  <id>snapshots-repo</id>
+  <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  <releases>
+    <enabled>false</enabled>
+  </releases>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+</repository>
+```
+
+</p>
+
+</details>
