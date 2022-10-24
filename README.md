@@ -11,7 +11,7 @@
     <img src="https://javadoc.io/badge2/info.tomfi.shabbat/shabbat-api/Javadoc.io.svg"/>
   </a>
   <a href="https://codecov.io/gh/TomerFi/shabbat-api">
-    <img src="https://codecov.io/gh/TomerFi/shabbat-api/branch/master/graph/badge.svg"/>
+    <img src="https://codecov.io/gh/TomerFi/shabbat-api/branch/main/graph/badge.svg"/>
   </a>
 </h1>
 
