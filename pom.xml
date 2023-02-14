@@ -19,7 +19,7 @@
     <!-- TESTING DEPENDENCIES -->
     <assertj.version>3.24.2</assertj.version>
     <byte-buddy.version>1.13.0</byte-buddy.version>
-    <equalsverifier.version>3.13</equalsverifier.version>
+    <equalsverifier.version>3.13.1</equalsverifier.version>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
     <mockito.version>5.1.1</mockito.version>
     <!-- Plugins -->
