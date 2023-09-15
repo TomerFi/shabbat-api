@@ -43,4 +43,5 @@ jobs:
         uses: codecov/codecov-action@v4
         if: ${{ matrix.java == env.MAIN_JAVA_VER }}
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./target/site/jacoco/jacoco.xml
