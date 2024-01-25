@@ -60,7 +60,7 @@ jobs:
           -DdevelopmentVersion=${{ steps.bumper.outputs.next_dev_iteration}}
 
       - name: Dispatch release event for jbang catalog
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: shabbat-api-released
