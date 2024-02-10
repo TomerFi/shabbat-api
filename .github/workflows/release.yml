@@ -55,9 +55,9 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: >
           mvn release:prepare release:perform -B -ff
-          -Dtag=${{ steps.bumper.outputs.new_version }}
-          -DreleaseVersion=${{ steps.bumper.outputs.new_version }}
-          -DdevelopmentVersion=${{ steps.bumper.outputs.next_dev_iteration}}
+          -Dtag=${{ steps.bumper.outputs.next }}
+          -DreleaseVersion=${{ steps.bumper.outputs.next }}
+          -DdevelopmentVersion=${{ steps.bumper.outputs.dev}}
 
       - name: Dispatch release event for jbang catalog
         uses: peter-evans/repository-dispatch@v3
@@ -65,14 +65,14 @@ jobs:
           token: ${{ secrets.EVENT_DISPATCH_PAT }}
           event-type: shabbat-api-released
           repository: TomerFi/jbang-catalog
-          client-payload: '{"release": "${{ steps.bumper.outputs.new_version }}"}'
+          client-payload: '{"release": "${{ steps.bumper.outputs.next }}"}'
 
       - name: Create release name
         id: release_name
         uses: actions/github-script@v7
         with:
           script: |
-            var retval = '${{ steps.bumper.outputs.new_version }}'
+            var retval = '${{ steps.bumper.outputs.next }}'
             if ('${{ github.event.inputs.title }}') {
               retval = retval.concat(' - ${{ github.event.inputs.title }}')
             }
@@ -85,7 +85,7 @@ jobs:
           script: |
             const repo_name = context.payload.repository.full_name
             const response = await github.request('POST /repos/' + repo_name + '/releases', {
-              tag_name: '${{ steps.bumper.outputs.new_version }}',
+              tag_name: '${{ steps.bumper.outputs.next }}',
               name: '${{ steps.release_name.outputs.value }}',
               generate_release_notes: true
             })
@@ -94,11 +94,11 @@ jobs:
       - name: Update readme usage section
         run: >
           sed -i
-          's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.new_version }}<\/version>/g'
+          's/<version>.*<\/version>/<version>${{ steps.bumper.outputs.next }}<\/version>/g'
           README.md
 
       - name: Push modifications
         run: |
           git add README.md
-          git commit -m "docs: updated usage section with ${{ steps.bumper.outputs.new_version }} [skip ci]"
+          git commit -m "docs: updated usage section with ${{ steps.bumper.outputs.next }} [skip ci]"
           git push
