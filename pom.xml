@@ -3,7 +3,7 @@
 
   <groupId>info.tomfi.shabbat</groupId>
   <artifactId>shabbat-api</artifactId>
-  <version>3.0.4-SNAPSHOT</version>
+  <version>3.0.4</version>
   <packaging>jar</packaging>
   <name>Shabbat API</name>
   <description>Hebrew Shabbat Java API</description>
@@ -67,7 +67,7 @@
     <url>https://github.com/TomerFi/shabbat-api</url>
     <connection>scm:git:git@github.com:TomerFi/shabbat-api.git</connection>
     <developerConnection>scm:git:git@github.com:TomerFi/shabbat-api.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>3.0.4</tag>
   </scm>
 
   <ciManagement>
