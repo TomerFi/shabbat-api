@@ -15,7 +15,7 @@
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- DEPENDENCIES -->
-    <jackson.version>2.16.1</jackson.version>
+    <jackson.version>2.17.0</jackson.version>
     <!-- TESTING DEPENDENCIES -->
     <assertj.version>3.25.3</assertj.version>
     <byte-buddy.version>1.14.12</byte-buddy.version>
