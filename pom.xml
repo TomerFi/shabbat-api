@@ -18,7 +18,7 @@
     <jackson.version>2.18.0</jackson.version>
     <!-- TESTING DEPENDENCIES -->
     <assertj.version>3.26.3</assertj.version>
-    <byte-buddy.version>1.15.3</byte-buddy.version>
+    <byte-buddy.version>1.15.4</byte-buddy.version>
     <equalsverifier.version>3.17.1</equalsverifier.version>
     <junit-jupiter.version>5.11.2</junit-jupiter.version>
     <mockito.version>5.2.0</mockito.version>
