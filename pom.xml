@@ -20,7 +20,7 @@
     <assertj.version>3.26.3</assertj.version>
     <byte-buddy.version>1.15.5</byte-buddy.version>
     <equalsverifier.version>3.17.1</equalsverifier.version>
-    <junit-jupiter.version>5.11.2</junit-jupiter.version>
+    <junit-jupiter.version>5.11.3</junit-jupiter.version>
     <mockito.version>5.2.0</mockito.version>
     <!-- Plugins -->
     <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
