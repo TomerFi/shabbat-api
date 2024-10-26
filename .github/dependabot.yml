@@ -1,26 +1,26 @@
----
-version: 2
-updates:
-  - package-ecosystem: "maven"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    labels:
-      - "type: dependencies"
-    commit-message:
-      prefix: "build"
-      include: "scope"
-    assignees:
-      - "tomerfi"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    labels:
-      - "type: dependencies"
-    commit-message:
-      prefix: "ci"
-      include: "scope"
-    assignees:
-      - "tomerfi"
+#---
+#version: 2
+#updates:
+#  - package-ecosystem: "maven"
+#    directory: "/"
+#    schedule:
+#      interval: "daily"
+#    labels:
+#      - "type: dependencies"
+#    commit-message:
+#      prefix: "build"
+#      include: "scope"
+#    assignees:
+#      - "tomerfi"
+#
+#  - package-ecosystem: "github-actions"
+#    directory: "/"
+#    schedule:
+#      interval: "daily"
+#    labels:
+#      - "type: dependencies"
+#    commit-message:
+#      prefix: "ci"
+#      include: "scope"
+#    assignees:
+#      - "tomerfi"

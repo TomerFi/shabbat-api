@@ -1,47 +1,47 @@
----
-name: Pull request build
-
-on:
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Build project
-    permissions:
-      checks: write
-      pull-requests: write
-    env:
-      MAIN_JAVA_VER: 11
-    strategy:
-      matrix:
-        java: [11, 17]
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      - name: Setup Java ${{ matrix.java }}
-        uses: actions/setup-java@v4.5.0
-        with:
-          distribution: adopt
-          java-version: ${{ matrix.java }}
-          cache: maven
-
-      - name: Verify the project and create coverage report
-        run: mvn verify -Pcov -B -ff
-
-      - name: Report test summary
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: ${{ matrix.java == env.MAIN_JAVA_VER  && always() }}
-        with:
-          test_changes_limit: 0
-          files: ./target/junit-platform/TEST-junit-jupiter.xml
-
-      - name: Push coverage report
-        uses: codecov/codecov-action@v4
-        if: ${{ matrix.java == env.MAIN_JAVA_VER }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./target/site/jacoco/jacoco.xml
+#---
+#name: Pull request build
+#
+#on:
+#  pull_request:
+#    branches:
+#      - main
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    name: Build project
+#    permissions:
+#      checks: write
+#      pull-requests: write
+#    env:
+#      MAIN_JAVA_VER: 11
+#    strategy:
+#      matrix:
+#        java: [11, 17]
+#    steps:
+#      - name: Checkout sources
+#        uses: actions/checkout@v4
+#
+#      - name: Setup Java ${{ matrix.java }}
+#        uses: actions/setup-java@v4.5.0
+#        with:
+#          distribution: adopt
+#          java-version: ${{ matrix.java }}
+#          cache: maven
+#
+#      - name: Verify the project and create coverage report
+#        run: mvn verify -Pcov -B -ff
+#
+#      - name: Report test summary
+#        uses: EnricoMi/publish-unit-test-result-action@v2
+#        if: ${{ matrix.java == env.MAIN_JAVA_VER  && always() }}
+#        with:
+#          test_changes_limit: 0
+#          files: ./target/junit-platform/TEST-junit-jupiter.xml
+#
+#      - name: Push coverage report
+#        uses: codecov/codecov-action@v4
+#        if: ${{ matrix.java == env.MAIN_JAVA_VER }}
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          file: ./target/site/jacoco/jacoco.xml

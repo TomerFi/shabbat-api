@@ -1,3 +1,8 @@
+# Shabbat Java API Archived.
+
+<details>
+<summary>Original README</summary>
+
 <h1 align="left">
   Hebrew Shabbat Java API
   <br/>
@@ -132,4 +137,5 @@ Snapshots are deployed to <em>OSSRH</em>:
 
 </p>
 
+</details>
 </details>
